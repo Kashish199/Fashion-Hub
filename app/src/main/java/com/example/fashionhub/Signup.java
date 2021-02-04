@@ -34,20 +34,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Signup extends AppCompatActivity {
-    //private static final String TAG = ;
 
-    /**
-     * signup button
-     */
     Button signup;
-    /**
-     * editetxt
-     */
+
     EditText fname, lnumber, email, password, confirmpassword;
     TextView login_btn1;
-    /**
-     * firebase auth variable
-     */
     private FirebaseAuth mFirebaseAuth;
     ProgressDialog pd;
     SharedPreferences sp;
@@ -66,11 +57,6 @@ public class Signup extends AppCompatActivity {
 
         login_btn1 = findViewById(R.id.loginbb);
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        /**
-         * fignup button onclick listener
-         */
-        // final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         sp = getSharedPreferences("Userdata", Context.MODE_PRIVATE);
 
@@ -121,8 +107,8 @@ public class Signup extends AppCompatActivity {
                 pd = new ProgressDialog(Signup.this);
                 pd.setMessage("Loading...");
                 pd.show();
-                FirebaseUser user = mFirebaseAuth.getCurrentUser();
-                String UserId = user.getUid();
+//                FirebaseUser user = mFirebaseAuth.getCurrentUser();
+//                String UserId = user.getUid();
 
                 final Map<String, Object> usermap = new HashMap<>();
                 usermap.put("Name", Name);
@@ -130,7 +116,7 @@ public class Signup extends AppCompatActivity {
                 usermap.put("Email", Email);
                 usermap.put("Customer", "Buyer");
                 usermap.put("AdminApprove", "Yes");
-                usermap.put("UserID", UserId);
+                usermap.put("UserID", "UserId");
 
                 mFirebaseAuth.createUserWithEmailAndPassword(Email, Password).addOnCompleteListener(Signup.this, new OnCompleteListener<AuthResult>() {
                     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -184,76 +170,6 @@ public class Signup extends AppCompatActivity {
         });
 
     }
-
-
-//        signup.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String userfname = fname.getText().toString();
-//                String userlnumber = lnumber.getText().toString();
-//                String useremail = email.getText().toString();
-//                String userpassword = password.getText().toString();
-//
-//
-//                if(useremail.isEmpty() || userfname.isEmpty()|| userlnumber.isEmpty()|| userpassword.isEmpty()){
-//                    Toast.makeText(Signup.this, "Please fill the form", Toast.LENGTH_SHORT).show();
-//                    return;
-//
-//                }
-//                if(userpassword.length()<6){
-//                    Toast.makeText(Signup.this, "Password should be 6 character long", Toast.LENGTH_SHORT).show();
-//                    return;
-//
-//                }
-//                if(!isEmailValid(useremail)){
-//                    Toast.makeText(Signup.this, "Please enter valid email", Toast.LENGTH_SHORT).show();
-//                    return;
-//
-//                }
-//                final Map<String,Object> usermap=new HashMap<>();
-//                usermap.put("Email",useremail);
-//                usermap.put("Fname",userfname);
-//                usermap.put("Number",userlnumber);
-//
-//
-//                /**
-//                 * authentiction using firebase
-//                 */
-//                mAuth.createUserWithEmailAndPassword(useremail, userpassword).addOnCompleteListener(Signup.this, new OnCompleteListener<AuthResult>() {
-//                    @RequiresApi(api = Build.VERSION_CODES.O)
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            FirebaseUser user = mAuth.getCurrentUser();
-//                            db.collection("User").document(mAuth.getCurrentUser().getUid()).set(usermap).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<Void> task) {
-//                                    if(task.isSuccessful()){
-//                                        Toast.makeText(getApplicationContext().getApplicationContext(),"Register Success!",Toast.LENGTH_LONG).show();
-//                                        Intent i = new Intent(getApplicationContext(), Home.class);
-//                                        startActivity(i);
-//                                        finish();
-//                                    }
-//                                }
-//                            });
-//                        }
-//
-//
-//
-//                        else {
-//                            Toast.makeText(Signup.this, "SignUp Unsuccessful, Please Try Again", Toast.LENGTH_SHORT).show();
-//
-//                        }
-//                    }
-//                });
-//
-//
-//
-//            }
-//        });
-//
-//
-//    }
 
     /**
      * email validity function
