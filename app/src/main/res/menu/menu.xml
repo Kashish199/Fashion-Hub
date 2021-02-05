@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/Profile"
+
+        android:title="Profile" />
+
+    <item
+        android:id="@+id/addProduct"
+
+        android:title="Add Product" />
+    <item
+        android:id="@+id/manageProduct"
+
+        android:title="Manage Product" />
+    <item
+        android:id="@+id/cart"
+
+        android:title="Cart" />
+
+    <item
+        android:id="@+id/orders"
+
+        android:title="Order History" />
+    <item
+        android:id="@+id/logout"
+
+        android:title="Logout" />
+</menu>
