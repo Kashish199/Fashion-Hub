@@ -20,9 +20,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import org.w3c.dom.Document;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -85,36 +89,29 @@ public class MainActivity extends AppCompatActivity {
                             } else {
 
                                 final FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                Query document = db.collection("User").whereEqualTo("Email", lemail);
+                                Log.d("TAG", "value => " + document);
 
-                                db.collection("User").whereEqualTo("AdminApprove", "Yes").whereEqualTo("Email", lemail).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                document.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                         if (task.isSuccessful()) {
                                             for (QueryDocumentSnapshot document : task.getResult()) {
                                                 Log.d("TAG", document.getId() + " => " + document.getData());
-                                                if (document.getData().containsValue(lemail)) {
+                                                if (document.getData().containsValue("Yes")) {
                                                     Toast.makeText(getApplicationContext(), "Login Success!", Toast.LENGTH_LONG).show();
                                                     Intent i = new Intent(getApplicationContext(), Home.class);
                                                     startActivity(i);
                                                     finish();
                                                 } else {
-                                                    Toast.makeText(getApplicationContext(), "You are not approved", Toast.LENGTH_LONG).show();
+                                                    Toast.makeText(getApplicationContext(), "You are not approved by admin", Toast.LENGTH_LONG).show();
                                                 }
                                             }
                                         } else {
                                             Log.w("TAG", "Error getting documents.", task.getException());
-//
                                         }
-//                                        Toast.makeText(getApplicationContext(), "Login Success!", Toast.LENGTH_LONG).show();
-//
-//                                        Intent i = new Intent(getApplicationContext(), Home.class);
-//                                        startActivity(i);
                                     }
-
-
                                 });
-                                Toast.makeText(getApplicationContext(), "You are not approved by admin", Toast.LENGTH_LONG).show();
-
                             }
                         } else {
                             try {
