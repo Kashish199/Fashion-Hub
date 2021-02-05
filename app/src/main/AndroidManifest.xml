@@ -9,8 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.fashionhub.SellerSignup" /> 
-        <activity android:name="com.example.fashionhub.MainActivity">
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".AdminRole" />
+        <activity android:name=".SellerSignup" />
+        <activity android:name=".User" />
+        <activity android:name=".Home" />
+        <activity android:name=".Signup" />
+
+        <activity android:name=".Splashscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
