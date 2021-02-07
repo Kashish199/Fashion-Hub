@@ -15,11 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.fashionhub.adapter.ProductAdapter;
-import com.example.fashionhub.adapter.ProductCategoryAdapter;
-import com.example.fashionhub.model.ProductCategory;
-import com.example.fashionhub.model.Products;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -48,6 +46,8 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        Toast.makeText(this, "Testing Toast", Toast.LENGTH_SHORT).show();
 
     }
 
