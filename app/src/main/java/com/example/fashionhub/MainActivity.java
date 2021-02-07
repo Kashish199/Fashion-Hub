@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * variable declaration for textview
      */
-    TextView useroption;
+    TextView useroption , forgotpass;
     /**
      * variable declaration for authentication object
      */
@@ -61,17 +61,27 @@ public class MainActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         pass = findViewById(R.id.password);
         auth = FirebaseAuth.getInstance();
+        forgotpass = findViewById(R.id.forgot);
 
         /**
          * login functionality
          */
+
+        forgotpass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), ForgotPassword.class);
+                startActivity(i);
+                finish();
+            }
+        });
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final String lemail = email.getText().toString();
                 String lpass = pass.getText().toString();
-                final String admin = "Admin@fashionhub.com";
+                final String admin = "admin@fashionhub.com";
                 if (lemail.isEmpty() || lpass.isEmpty()) {
                     Toast.makeText(MainActivity.this, "Please fill the form", Toast.LENGTH_SHORT).show();
                     return;
@@ -99,8 +109,10 @@ public class MainActivity extends AppCompatActivity {
                                             for (QueryDocumentSnapshot document : task.getResult()) {
                                                 Log.d("TAG", document.getId() + " => " + document.getData());
                                                 if (document.getData().containsValue("Yes")) {
+                                                    String Customer =  (String) document.getData().get("Customer");
                                                     Toast.makeText(getApplicationContext(), "Login Success!", Toast.LENGTH_LONG).show();
                                                     Intent i = new Intent(getApplicationContext(), Home.class);
+                                                    i.putExtra("Customer", Customer);
                                                     startActivity(i);
                                                     finish();
                                                 } else {
