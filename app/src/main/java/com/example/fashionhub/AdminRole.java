@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-
 import com.example.fashionhub.adapter.ApproveAdapter;
 import com.example.fashionhub.model.ApproveModel;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,10 +29,8 @@ public class AdminRole extends AppCompatActivity {
 
     RecyclerView admin_recycler;
     ApproveAdapter adapter;
-
     Button refresh, logout;
     List<ApproveModel> approve_list = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +72,7 @@ public class AdminRole extends AppCompatActivity {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         final FirebaseUser firebaseUser = auth.getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Task<QuerySnapshot> docRef = db.collection("User").whereEqualTo("AdminApprove", data222).whereEqualTo("Customer", customer)
+        Task<QuerySnapshot> docRef = db.collection("User").whereEqualTo("Customer", customer)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -86,18 +83,10 @@ public class AdminRole extends AppCompatActivity {
                                 String Id = (String) document.getData().get("UserID");
                                 String Name = (String) document.getData().get("Name");
                                 String Company = String.valueOf(document.getData().get("Company"));
-
-//                        for (DocumentSnapshot querySnapshot : task.getResult()) {
-//                            ApproveModel user = new ApproveModel(querySnapshot.getString("Name"), querySnapshot.getString("Company"));
-//                            approve_list.add(user);
-//                            Log.d("DATADATATDATDA", "" + user);
-
-                                approve_list.add(new ApproveModel(Id, Name, Company));
+                                String AdminApprove = String.valueOf(document.getData().get("AdminApprove"));
+                                approve_list.add(new ApproveModel(Id, Name, Company, AdminApprove));
                             }
-
                             setRecyclerview(approve_list);
-//                            adapter = new ApproveAdapter(AdminRole.this, approve_list);
-//                            admin_recycler.setAdapter(adapter);
                         } else {
                             Log.d("", "Error getting documents: ", task.getException());
                         }
@@ -108,7 +97,6 @@ public class AdminRole extends AppCompatActivity {
 //                        Toast.makeText(getApplicationContext(), "ERROR WHILE FETCHING!", Toast.LENGTH_LONG).show();
 //                    }
                 });
-
     }
 
 
@@ -120,9 +108,4 @@ public class AdminRole extends AppCompatActivity {
         admin_recycler.setAdapter(adapter);
     }
 
-//    private List<ApproveModel> getList() {
-//         List<ApproveModel> approve_list = new ArrayList<>();
-//         approve_list.add(new ApproveModel("Viraj", "virajcompany"));
-//         return approve_list;
-//    }
 }
