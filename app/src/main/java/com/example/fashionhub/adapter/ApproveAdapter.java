@@ -1,12 +1,14 @@
 package com.example.fashionhub.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,9 +49,28 @@ public class ApproveAdapter extends RecyclerView.Adapter<ApproveAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+        final int green = Color.parseColor("#008000");
+        final int red = Color.parseColor("#FF0000");
+
+
+
         if (approve_list != null && approve_list.size() > 0) {
             ApproveModel model = approve_list.get(position);
+
+            if (model.getAdminApprove().equals("Yes")) {
+                holder.approve.setVisibility(View.GONE);
+                holder.unapprove.setVisibility(View.VISIBLE);
+                holder.sellname.setTextColor(green);
+                holder.sellcompany.setTextColor(green);
+
+            } else {
+                holder.sellname.setTextColor(red);
+                holder.sellcompany.setTextColor(red);
+                holder.unapprove.setVisibility(View.GONE);
+                holder.approve.setVisibility(View.VISIBLE);
+
+            }
             holder.sellname.setText(model.getName());
             holder.sellcompany.setText(model.getCompany());
 
@@ -59,7 +80,6 @@ public class ApproveAdapter extends RecyclerView.Adapter<ApproveAdapter.ViewHold
                     FirebaseAuth auth = FirebaseAuth.getInstance();
                     FirebaseUser firebaseUser = auth.getCurrentUser();
                     final FirebaseFirestore fstore = FirebaseFirestore.getInstance();
-
 
                     Query productIdRef = fstore.collection("User").whereEqualTo("UserID", approve_list.get(position).getId());
 
@@ -78,6 +98,8 @@ public class ApproveAdapter extends RecyclerView.Adapter<ApproveAdapter.ViewHold
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 Log.d("TAG", "DocumentSnapshot successfully updated!");
+//                                                holder.sellname.setTextColor(Color.GREEN);
+//                                                holder.sellcompany.setTextColor(Color.GREEN);
                                             }
                                         })
                                                 .addOnFailureListener(new OnFailureListener() {
@@ -86,20 +108,6 @@ public class ApproveAdapter extends RecyclerView.Adapter<ApproveAdapter.ViewHold
                                                         Log.w("TAG", "Error updating document", e);
                                                     }
                                                 });
-
-//                                        Map<String, Object> userMap = new HashMap<>();
-//                                        userMap.put("AdminApprove", "Yes");
-//                                        fstore.collection("User").document(idUser).set(userMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                            @Override
-//                                            public void onSuccess(Void aVoid) {
-//                                                Log.d("tagvv", "ITS WORKING");
-//                                            }
-//                                        }).addOnFailureListener(new OnFailureListener() {
-//                                                    @Override
-//                                                    public void onFailure(@NonNull Exception e) {
-//                                                        Log.w("TAG", "Error writing document", e);
-//                                                    }
-//                                                });
                                     }
                                 }
                             } else {
@@ -132,33 +140,59 @@ public class ApproveAdapter extends RecyclerView.Adapter<ApproveAdapter.ViewHold
 ////                                    }
             });
 
+            holder.unapprove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FirebaseAuth auth = FirebaseAuth.getInstance();
+                    FirebaseUser firebaseUser = auth.getCurrentUser();
+                    final FirebaseFirestore fstore = FirebaseFirestore.getInstance();
+
+                    Query productIdRef = fstore.collection("User").whereEqualTo("UserID", approve_list.get(position).getId());
+
+                    productIdRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Map<String, Object> data1 = document.getData();
+                                    String Name = data1.get("Name").toString();
+                                    String idUser = data1.get("UserID").toString();
+                                    Status = data1.get("AdminApprove").toString();
+                                    if (Status.equals("Yes")) {
+                                        DocumentReference washingtonRef = fstore.collection("User").document(idUser);
+                                        washingtonRef.update("AdminApprove", "No").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("TAG", "DocumentSnapshot successfully updated!");
+                                                holder.sellname.setTextColor(Color.RED);
+                                                holder.sellcompany.setTextColor(Color.RED);
+                                            }
+                                        })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.w("TAG", "Error updating document", e);
+                                                    }
+                                                });
+                                    } else {
+                                        Log.d("TAG", "ERROR ERROR");
+
+                                    }
+                                }
+                            } else {
+                                Log.d("log", "Error getting documents: ", task.getException());
+                            }
+
+                        }
+                    });
+                }
+            });
+
         } else {
             return;
         }
 
     }
-
-    // productIdRef.get().addOnSuccessListener(new)
-
-////                    Query fdata = fstore.collection("User").whereEqualTo("Name", approve_list.get(position).getName());
-//
-//                  productIdRef.get().addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                        @Override
-//                        public void onSuccess(DocumentReference documentReference) {
-//
-//                            //Toast.makeText(getAp, " Post added Successfully ", Toast.LENGTH_SHORT).show();
-//                            //finish();
-//
-//                        }
-//                    }).addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//
-//                            String Error = e.getMessage();
-//                            //Toast.makeText(ApproveAdapter.this, " Error:" + Error, Toast.LENGTH_SHORT).show();
-//                        }
-    // });
-
 
     @Override
     public int getItemCount() {
@@ -168,7 +202,7 @@ public class ApproveAdapter extends RecyclerView.Adapter<ApproveAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView sellname, sellcompany;
-        Button approve;
+        Button approve, unapprove;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -176,6 +210,8 @@ public class ApproveAdapter extends RecyclerView.Adapter<ApproveAdapter.ViewHold
             sellname = itemView.findViewById(R.id.sellname);
             sellcompany = itemView.findViewById(R.id.sellcompany);
             approve = itemView.findViewById(R.id.approve);
+            unapprove = itemView.findViewById(R.id.unapprove);
+
         }
     }
 }
