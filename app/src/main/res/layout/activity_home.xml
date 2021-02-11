@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Home">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="wrap_content"
@@ -13,7 +14,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
 
         <TextView
             android:id="@+id/women"
@@ -49,11 +49,11 @@
             android:id="@+id/boy"
             android:layout_width="50dp"
             android:layout_height="100dp"
-            android:fontFamily="@font/rubik_bold_italic"
+            android:fontFamily="@font/rubik_medium"
             android:gravity="center"
             android:rotation="270"
             android:text="Boy"
-            android:textColor="#005B1B"
+            android:textColor="#ffc107"
             android:textSize="15sp"
             app:layout_constraintBottom_toTopOf="@+id/women"
             app:layout_constraintEnd_toEndOf="@+id/women"
@@ -153,6 +153,5 @@
         app:layout_constraintStart_toStartOf="@+id/imageView4"
         app:layout_constraintTop_toBottomOf="@+id/cat_recycler"
         tools:listitem="@layout/products_row_item" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
