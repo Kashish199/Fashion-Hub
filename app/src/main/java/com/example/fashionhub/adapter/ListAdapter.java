@@ -70,10 +70,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
                                 document.getReference().delete();
                                 //notifyItemRemoved(position);
                                 //notifyItemRangeChanged(position, productsList.size());
-
-
-//
-
                             }
                             productsList.remove(position);
                             notifyDataSetChanged();

@@ -30,6 +30,8 @@ public class OrderSummary extends AppCompatActivity {
         btnCheckout = findViewById(R.id.btnCheckout);
         final Bundle b = getIntent().getExtras();
 
+
+
         final double price = b.getDouble("price");
 
         stotal.setText("$ " + price);

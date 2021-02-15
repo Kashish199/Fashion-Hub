@@ -1,10 +1,19 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+<!--        <item name="Approve">@color/Approve</item>-->
+<!--        <item name="Deny">@color/deny</item>-->
+<!--        <item name="csrtbutton">@color/cartbutton</item>-->
+
+    </style>
+
+    <style name="Widget.MyApp.Button" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/deny</item>
+        <item name="background">@color/Approve</item>
     </style>
 
 </resources>

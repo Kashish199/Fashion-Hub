@@ -164,8 +164,8 @@ public class ApproveAdapter extends RecyclerView.Adapter<ApproveAdapter.ViewHold
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 Log.d("TAG", "DocumentSnapshot successfully updated!");
-                                                holder.sellname.setTextColor(Color.RED);
-                                                holder.sellcompany.setTextColor(Color.RED);
+//                                                holder.sellname.setTextColor(Color.RED);
+//                                                holder.sellcompany.setTextColor(Color.RED);
                                             }
                                         })
                                                 .addOnFailureListener(new OnFailureListener() {

@@ -3,11 +3,13 @@ package com.example.fashionhub;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,7 +23,7 @@ import java.util.regex.Pattern;
 
 public class ForgotPassword extends AppCompatActivity {
 
-
+TextView signup;
     EditText email;
     Button reset;
     String emailAddress;
@@ -33,6 +35,17 @@ public class ForgotPassword extends AppCompatActivity {
         final FirebaseAuth auth = FirebaseAuth.getInstance();
         email = findViewById(R.id.resetemail);
         reset = findViewById(R.id.resetpassword);
+        signup = findViewById(R.id.signup_option);
+
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent u = new Intent(getApplicationContext(), User.class);
+                startActivity(u);
+
+            }
+        });
+
 
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
