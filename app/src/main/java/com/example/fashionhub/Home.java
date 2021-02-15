@@ -107,18 +107,8 @@ public class Home extends AppCompatActivity {
         final List<Products> productsList = new ArrayList<>();
         productCategoryList.add(new ProductCategory("se", "Events"));
         productCategoryList.add(new ProductCategory("dd", "event"));
-//        productCategoryList.add(new ProductCategory(3, "All Body Products"));
-//        productCategoryList.add(new ProductCategory(4, "Skin Care"));
-//        productCategoryList.add(new ProductCategory(5, "Hair Care"));
-//        productCategoryList.add(new ProductCategory(6, "Make Up"));
-//        productCategoryList.add(new ProductCategory(7, "Fragrance"));
         setProductRecycler(productCategoryList);
         setdata(productsList, "Boy");
-
-
-//    final Typeface typeface = g(R.font.rubik_bold_italic);
-//        final Typeface typeface1 = getResources().getFont(R.font.rubik);
-////            (R.font.rubik_bold_italic);
 
         final int white = Color.parseColor("#060001");
         final int yellow = Color.parseColor("#ffc107");
@@ -128,15 +118,10 @@ public class Home extends AppCompatActivity {
                 women.setTextColor(white);
                 boy.setTextColor(white);
                 men.setTextColor(white);
-//                men.setTypeface(typeface1);
-//                boy.setTypeface(typeface1);
-//                women.setTypeface(typeface1);
-
                 boolean isSelectedAfterClick = !view.isSelected();
                 view.setSelected(isSelectedAfterClick);
                 if (isSelectedAfterClick){
                     girl.setTextColor(yellow);
-//                       girl.setTypeface(typeface);
                 } else {
                     girl.setTextColor(white);
                 }
@@ -152,14 +137,10 @@ public class Home extends AppCompatActivity {
                 girl.setTextColor(white);
                 men.setTextColor(white);
                 women.setTextColor(white);
-//                men.setTypeface(typeface1);
-//                girl.setTypeface(typeface1);
-//                women.setTypeface(typeface1);
                 boolean isSelectedAfterClick = !view.isSelected();
                 view.setSelected(isSelectedAfterClick);
                 if (isSelectedAfterClick){
                     boy.setTextColor(yellow);
-//                    boy.setTypeface(typeface);
                 } else {
                     boy.setTextColor(white);
                 }
@@ -174,14 +155,10 @@ public class Home extends AppCompatActivity {
                 girl.setTextColor(white);
                 boy.setTextColor(white);
                 women.setTextColor(white);
-//                girl.setTypeface(typeface1);
-//                boy.setTypeface(typeface1);
-//                women.setTypeface(typeface1);
                 boolean isSelectedAfterClick = !view.isSelected();
                 view.setSelected(isSelectedAfterClick);
                 if (isSelectedAfterClick){
                     men.setTextColor(yellow);
-//                    men.setTypeface(typeface);
                 } else {
                     men.setTextColor(white);
                 }
@@ -198,21 +175,15 @@ public class Home extends AppCompatActivity {
                 girl.setTextColor(white);
                 boy.setTextColor(white);
                 men.setTextColor(white);
-//                men.setTypeface(typeface1);
-//                boy.setTypeface(typeface1);
-//                girl.setTypeface(typeface1);
                 boolean isSelectedAfterClick = !view.isSelected();
                 view.setSelected(isSelectedAfterClick);
                 if (isSelectedAfterClick){
                     women.setTextColor(yellow);
-//                    women.setTypeface(typeface);
                 } else {
                     women.setTextColor(white);
                 }
-
                 removeitem(productsList);
                 setdata(productsList, "Women");
-
 
             }
         });
@@ -246,7 +217,10 @@ public class Home extends AppCompatActivity {
                                 String id = (String)(document.getId());
                                 String image = (String) document.getData().get("Image");
                                 String detail_image = (String) document.getData().get("Detail_image");
-                                getImage(id, image, name, description, size, price, productsList, subbrand, detail_image);
+                                String event = (String) document.getData().get("Event");
+                                String colorP = (String) document.getData().get("Color");
+
+                                getImage(id, image, name, event, colorP, description, size, price, productsList, subbrand, detail_image);
                             }
 
                         } else {
@@ -286,7 +260,7 @@ public class Home extends AppCompatActivity {
      * @param category
      * @param detail_image
      */
-    private void getImage(final String id, final String image, final String name, final String description, final String size, final String price, final List<Products> productsList, final String category, final String detail_image) {
+    private void getImage(final String id, final String image, final String name,final String event, final String colorP, final String description, final String size, final String price, final List<Products> productsList, final String category, final String detail_image) {
         Log.d("", description);
         FirebaseStorage storage = FirebaseStorage.getInstance();
         ;
@@ -298,7 +272,7 @@ public class Home extends AppCompatActivity {
                 storageRef.child(detail_image).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri detail_image) {
-                        productsList.add(new Products(id, name, size, price, uri, description, category, detail_image));
+                        productsList.add(new Products(id, name, event, colorP, size, price, uri, description, category, detail_image));
                         setProdItemRecycler(productsList);
 
                     }
@@ -312,8 +286,6 @@ public class Home extends AppCompatActivity {
 
             }
         });
-
-        Toast.makeText(this, "Testing Toast", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -353,12 +325,16 @@ public class Home extends AppCompatActivity {
             profile.setVisible(true);//
             MenuItem addProduct = menu.findItem(R.id.addProduct);
             addProduct.setVisible(true);
+            MenuItem ManageProduct = menu.findItem(R.id.manageProduct);
+            ManageProduct.setVisible(true);
             return true;
         } else {
             MenuItem profile = menu.findItem(R.id.Profile);
             profile.setVisible(true);//
             MenuItem addProduct = menu.findItem(R.id.addProduct);
             addProduct.setVisible(false);
+            MenuItem ManageProduct = menu.findItem(R.id.manageProduct);
+            ManageProduct.setVisible(false);
             return true;
         }
     }
@@ -375,12 +351,14 @@ public class Home extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.addProduct:
-                if (Customer.equals("Seller")) {
+                //if (Customer.equals("Seller")) {
                     Intent p = new Intent(getApplicationContext(), AddProduct.class);
                     startActivity(p);
-                } else {
-                    Toast.makeText(getApplicationContext(), "Too Upload Products You need to be register as a Seller", Toast.LENGTH_LONG).show();
-                }
+               //
+                return true;
+            case R.id.manageProduct:
+                Intent ma = new Intent(getApplicationContext(), PostList.class);
+                startActivity(ma);
                 return true;
             case R.id.cart:
                 Intent i = new Intent(getApplicationContext(), Cart.class);
