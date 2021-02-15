@@ -6,15 +6,15 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg"
     tools:context=".ProductDetails">
-    <ImageView
-        android:id="@+id/back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_back" />
+<!--    <ImageView-->
+<!--        android:id="@+id/back"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="24dp"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:srcCompat="@drawable/ic_back" />-->
 
     <!--    <ImageView-->
     <!--        android:id="@+id/imageView5"-->
@@ -53,7 +53,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/event"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -68,7 +68,7 @@
             app:layout_constraintTop_toTopOf="@+id/category" />
 
         <TextView
-            android:id="@+id/size"
+            android:id="@+id/color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -77,9 +77,9 @@
             android:text="color"
             android:textColor="@android:color/background_dark"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView10"
-            app:layout_constraintStart_toEndOf="@+id/textView10"
-            app:layout_constraintTop_toTopOf="@+id/textView10" />
+            app:layout_constraintBottom_toBottomOf="@+id/event"
+            app:layout_constraintStart_toEndOf="@+id/event"
+            app:layout_constraintTop_toTopOf="@+id/event" />
 
         <TextView
             android:id="@+id/name"
@@ -157,7 +157,7 @@
             android:id="@+id/addtocart"
             android:layout_width="180dp"
             android:layout_height="80dp"
-            android:background="@drawable/detail_page_cart_button_bg"
+            android:backgroundTint="@color/cartbutton"
             android:drawableRight="@drawable/ic_arrow_forward_black_24dp"
             android:fontFamily="@font/rubik_medium"
             android:padding="16dp"

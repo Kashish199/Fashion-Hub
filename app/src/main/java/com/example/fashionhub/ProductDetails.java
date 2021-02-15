@@ -37,7 +37,7 @@ public class ProductDetails extends AppCompatActivity {
     /**
      * variable declaration for textview
      */
-    TextView description, price, quantity, name, category, color;
+    TextView description, price, quantity, name, category, color, event;
     /**
      * variable declaration for imageview
      */
@@ -59,7 +59,7 @@ public class ProductDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
-        back = findViewById(R.id.back);
+//        back = findViewById(R.id.back);
         addtocart = findViewById(R.id.addtocart);
         description = findViewById(R.id.description);
         price = findViewById(R.id.price);
@@ -69,6 +69,8 @@ public class ProductDetails extends AppCompatActivity {
         add = findViewById(R.id.add);
         remove = findViewById(R.id.remove);
         productimage = findViewById(R.id.productimage);
+        color = findViewById(R.id.color);
+        event = findViewById(R.id.event);
 
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
@@ -79,6 +81,8 @@ public class ProductDetails extends AppCompatActivity {
         final String p_price = b.getString("Price");
         final String p_name = b.getString("Name");
         String p_category = b.getString("Category");
+         String p_event = b.getString("Event");
+         String p_color = b.getString("Color");
         final String p_image = b.getString("Image");
         curUser = auth.getCurrentUser();
         final String userid = String.valueOf(curUser.getUid());
@@ -86,14 +90,14 @@ public class ProductDetails extends AppCompatActivity {
         /**
          * go back function
          */
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), Home.class);
-                startActivity(i);
-                finish();
-            }
-        });
+//        back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent i = new Intent(getApplicationContext(), Home.class);
+//                startActivity(i);
+//                finish();
+//            }
+//        });
 
         /**
          * add to cart functionality
@@ -180,6 +184,8 @@ public class ProductDetails extends AppCompatActivity {
         category.setText("" + p_category);
         price.setText("$" + p_price);
         name.setText("" + p_name);
+        event.setText("" + p_event);
+        color.setText("" + p_color);
 
         Picasso
                 .get()
