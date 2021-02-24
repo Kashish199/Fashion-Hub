@@ -14,10 +14,11 @@ public class Products {
     private Uri uri;
     String category;
     Uri detail_image;
+    int qty;
 
 //
 
-    public Products(String productid, String productName, String event, String colorP, String productQty, String productPrice, Uri uri, String description, String category, Uri detail_image) {
+    public Products(String productid, String productName, String event, String colorP, String productQty, String productPrice, Uri uri, String description, String category, Uri detail_image,  int qty) {
         this.productid = productid;
         this.event = event;
         this.colorP = colorP;
@@ -28,6 +29,15 @@ public class Products {
         this.description = description;
         this.category = category;
         this.detail_image = detail_image;
+        this.qty = qty;
+    }
+
+    public int getQty() {
+        return qty;
+    }
+
+    public void setQty(int qty) {
+        this.qty = qty;
     }
 
     public String getEvent() {

@@ -60,6 +60,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 Uri image = productsList.get(position).getDetailmageUrl();
                 String event = productsList.get(position).getEvent();
                 String colorP = productsList.get(position).getColorP();
+                int qty = productsList.get(position).getQty();
 
 
                 b.putString("Name", name);
@@ -70,6 +71,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 b.putString("Image", String.valueOf(image));
                 b.putString("Event", event);
                 b.putString("Color", colorP);
+                b.putInt("Qty", qty);
 
 
                 i.putExtras(b);
