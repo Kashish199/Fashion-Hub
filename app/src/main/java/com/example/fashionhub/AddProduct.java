@@ -62,7 +62,7 @@ public class AddProduct extends AppCompatActivity {
     FirebaseStorage storage;
     StorageReference storageReference;
     ArrayList<Uri> contenturi = new ArrayList<Uri>();
-    private TextInputLayout et_product_name, et_des, et_amt, et_category, et_event, et_size, et_color;
+    private TextInputLayout et_product_name, et_des, et_amt, et_category, et_event, et_size, et_color, et_qty;
     int photos = 0;
 
     @Override
@@ -77,6 +77,7 @@ public class AddProduct extends AppCompatActivity {
         et_event = findViewById(R.id.event1);
         et_size = findViewById(R.id.size1);
         et_color = findViewById(R.id.color);
+        et_qty = findViewById(R.id.qty);
         upload = findViewById(R.id.uploadImage);
         image = new ImageView[]{upload, selectedImage1, selectedImage2, selectedImage3};
 
@@ -134,6 +135,7 @@ public class AddProduct extends AppCompatActivity {
                 String Event = et_event.getEditText().getText().toString().trim();
                 String Size = et_size.getEditText().getText().toString().trim();
                 String Color = et_color.getEditText().getText().toString().trim();
+                String Qty = et_qty.getEditText().getText().toString().trim();
 
 
                 if (Product_Name.isEmpty()) {
@@ -178,6 +180,9 @@ public class AddProduct extends AppCompatActivity {
                 } else if (Color.isEmpty()) {
                     Toast.makeText(AddProduct.this, "Please select color", Toast.LENGTH_LONG).show();
                     return;
+                }else if (Qty.isEmpty()) {
+                    Toast.makeText(AddProduct.this, "Please select Qty", Toast.LENGTH_LONG).show();
+                    return;
                 } else if (photos < 1) {
                     Toast.makeText(AddProduct.this, "Please Select atleast 1 photo", Toast.LENGTH_LONG).show();
                 } else {
@@ -202,6 +207,7 @@ public class AddProduct extends AppCompatActivity {
                     userMap.put("Detail_image", Event);
                     userMap.put("Image", "Image");
                     userMap.put("Color", Color);
+                    userMap.put("Qty", Qty);
                     userMap.put("ProductID", "ProductID");
                     userMap.put("Status", "Active");
 
