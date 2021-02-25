@@ -6,26 +6,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg"
     tools:context=".ProductDetails">
-<!--    <ImageView-->
-<!--        android:id="@+id/back"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="24dp"-->
-<!--        android:layout_marginTop="24dp"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:srcCompat="@drawable/ic_back" />-->
-
-    <!--    <ImageView-->
-    <!--        android:id="@+id/imageView5"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="24dp"-->
-    <!--        android:layout_marginEnd="24dp"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        app:srcCompat="@drawable/ic_more" />-->
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
@@ -121,6 +101,36 @@
             app:layout_constraintStart_toStartOf="@+id/name"
             app:layout_constraintTop_toBottomOf="@+id/name" />
 
+        <TextView
+            android:id="@+id/stock1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/rubik"
+            android:lineSpacingExtra="2dp"
+            android:text="STOCK AVAILABLE "
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/background_dark"
+            app:layout_constraintStart_toStartOf="@+id/description"
+            app:layout_constraintTop_toBottomOf="@+id/description" />
+
+        <TextView
+            android:id="@+id/stock"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/rubik"
+            android:lineSpacingExtra="2dp"
+            android:text="Stock"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:textColor="#FF0000"
+            app:layout_constraintEnd_toEndOf="@+id/description"
+            app:layout_constraintRight_toLeftOf="@+id/stock1"
+            app:layout_constraintStart_toEndOf="@+id/stock1"
+            app:layout_constraintTop_toBottomOf="@+id/description" />
+
         <ImageView
             android:id="@+id/remove"
             android:layout_width="wrap_content"
@@ -136,7 +146,7 @@
             android:layout_height="53dp"
             android:fontFamily="@font/rubik_medium"
             android:gravity="center"
-            android:text="1"
+            android:text="0"
             android:textColor="@android:color/background_dark"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/remove"

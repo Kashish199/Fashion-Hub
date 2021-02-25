@@ -3,7 +3,9 @@ package com.example.fashionhub;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
@@ -81,6 +83,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 final String lemail = email.getText().toString();
                 String lpass = pass.getText().toString();
+                SharedPreferences sp = getApplicationContext().getSharedPreferences("Userdata", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("USEREmailID", lemail);
+                editor.putString("USERPassword", lpass);
+                editor.commit();
                 final String admin = "admin@fashionhub.com";
                 if (lemail.isEmpty() || lpass.isEmpty()) {
                     Toast.makeText(MainActivity.this, "Please fill the form", Toast.LENGTH_SHORT).show();
