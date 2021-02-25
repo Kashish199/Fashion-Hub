@@ -1,7 +1,9 @@
 package com.example.fashionhub.adapter;
 
 import android.content.Context;
-
+import android.os.Bundle;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,8 @@ import android.widget.TextView;
 import com.example.fashionhub.R;
 import com.example.fashionhub.model.CartModel;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -22,7 +26,9 @@ import com.squareup.picasso.Picasso;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder> {
@@ -57,7 +63,55 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
             @Override
             public void onClick(View view) {
 
+
                 if (view.getId() == R.id.Cancel) {
+
+//                    String qty1 = productsList.get(position).getProductQty();
+                    String pid = productsList.get(position).getProductid();
+                    db.collection("Products")
+                            .whereEqualTo("ProductID", pid)
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            Log.d("", document.getId() + " => " + document.getData());
+                                            System.out.println(document.getId() + " => " + document.getData());
+                                            String q = (String) document.getData().get("Qty");
+                                            int qty = Integer.parseInt(q.toString());
+
+                                            String qty1 = productsList.get(position).getProductQty();
+                                            SystemClock.sleep(3000);
+                                            String pid = productsList.get(position).getProductid();
+
+                                            int p_quantity = Integer.parseInt(qty1);
+
+                                            int newData = qty + p_quantity;
+                                            String newData2 = String.valueOf(newData);
+                                            Map<String, Object> usermap1 = new HashMap<>();
+                                            usermap1.put("UserID", newData2);
+                                            FirebaseFirestore fstore = FirebaseFirestore.getInstance();
+                                            fstore.collection("Products").document(pid).update("Qty", newData2)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Log.d("tagvv", "ITS WORKING");
+                                                        }
+                                                    }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.w("TAG", "Error writing document", e);
+                                                }
+                                            });
+                                        }
+
+                                    } else {
+                                        Log.d("", "Error getting documents: ", task.getException());
+                                    }
+                                }
+                            });
+
                     Query productIdRef = db.collection("Cart")
                             .whereEqualTo("id", productsList.get(position).getId());
 
@@ -73,6 +127,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
                             }
                             productsList.remove(position);
                             notifyDataSetChanged();
+
 
                         }
 
@@ -92,6 +147,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
         return productsList.size();
     }
 
+
     public static final class ListViewHolder extends RecyclerView.ViewHolder {
 
         ImageView prodImage;
@@ -106,65 +162,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
             prodPrice = itemView.findViewById(R.id.cprice);
             prodQty = itemView.findViewById(R.id.cquantity);
             cancel = itemView.findViewById(R.id.Cancel);
-
-
         }
     }
-
-//    @Override
-//    public int getCount() {
-//        return values.length;
-//    }
-//
-//    @Override
-//    public Object getItem(int i) {
-//        return i;
-//    }
-//
-//    @Override
-//    public long getItemId(int i) {
-//        return i;
-//    }
-//
-//    @NonNull
-//    @Override
-//    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-//
-//
-//        ViewHolder viewHolder;
-//
-//        final View result;
-//
-//        if (convertView == null) {
-//
-//            viewHolder = new ViewHolder();
-//            LayoutInflater inflater = LayoutInflater.from(context);
-//            convertView = inflater.inflate(R.layout.single_list_item, parent, false);
-//            viewHolder.txtName = (TextView) convertView.findViewById(R.id.aNametxt);
-//            viewHolder.txtVersion = (TextView) convertView.findViewById(R.id.aVersiontxt);
-//            viewHolder.icon = (ImageView) convertView.findViewById(R.id.appIconIV);
-//
-//            result=convertView;
-//
-//            convertView.setTag(viewHolder);
-//        } else {
-//            viewHolder = (ViewHolder) convertView.getTag();
-//            result=convertView;
-//        }
-//
-//        viewHolder.txtName.setText(values[position]);
-//        viewHolder.txtVersion.setText("Price: "+numbers[position] +"$");
-//        viewHolder.icon.setImageResource(images[position]);
-//
-//        return convertView;
-//    }
-//
-//    private static class ViewHolder {
-//
-//        TextView txtName;
-//        TextView txtVersion;
-//        ImageView icon;
-//
-//    }
 
 }

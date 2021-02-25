@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UpdateProduct"></activity>
+        <activity android:name=".ProfileDetails"></activity>
+        <activity android:name=".UpdateProduct" />
         <activity android:name=".PostList" />
         <activity android:name=".ForgotPassword" />
         <activity android:name=".AdminRole" />
