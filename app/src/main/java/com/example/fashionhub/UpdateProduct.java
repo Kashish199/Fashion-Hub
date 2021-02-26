@@ -482,6 +482,26 @@ public class UpdateProduct extends AppCompatActivity {
 
     }
 
+    private void deleteImages() {
+
+        storageReference = FirebaseStorage.getInstance().getReference();
+
+// Create a reference to the file to delete
+            StorageReference desertRef = storageReference.child(pid + ".png");
+// Delete the file
+            desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    // File deleted successfully
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Uh-oh, an error occurred!
+                }
+            });
+
+    }
 
     private void uploadImage(String id) {
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -505,9 +525,67 @@ public class UpdateProduct extends AppCompatActivity {
         }
     }
 
-   
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.updateproduct, menu);
+        return true;
+
+    }
+
+    /**
+     * switch case for options menu
+     *
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.delete:
 
 
+                final CharSequence[] options = {"Delete", "Cancel"};
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(UpdateProduct.this);
+                builder1.setTitle("Delete Post");
+                builder1.setItems(options, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (options[item].equals("Delete")) {
+                            delete();
+                        } else if (options[item].equals("Cancel")) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                builder1.show();
+        return true;
+        default:
+        return super.onOptionsItemSelected(item);
+    }
+}
+
+
+    private void delete() {
+        fstore = FirebaseFirestore.getInstance();
+        DocumentReference docRef = fstore.collection("Products").document(pid);
+        docRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                deleteImages();
+                Log.d("tagvv", "DocumentSnapshot successfully deleted!");
+                Toast.makeText(UpdateProduct.this, "Post Deleted Successfully", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("tagvv", "Error deleting document", e);
+                    }
+                });
+
+    }
 
 
 }
