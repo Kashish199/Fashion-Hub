@@ -76,6 +76,7 @@ public class UpdateProduct extends AppCompatActivity {
     int photos = 0, internetPhotos = 0;
     String pid;
     String producid;
+    Button status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +92,7 @@ public class UpdateProduct extends AppCompatActivity {
         et_color = findViewById(R.id.colorUpdate);
         et_qty = findViewById(R.id.qtyUpdate);
         upload1 = findViewById(R.id.uploadImageUpdate);
+        status = findViewById(R.id.status);
         image = new ImageView[]{upload1, selectedImage1, selectedImage2, selectedImage3};
 
         Intent i = getIntent();
@@ -136,6 +138,37 @@ public class UpdateProduct extends AppCompatActivity {
             }
         });
 
+        status.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fstore = FirebaseFirestore.getInstance();
+                DocumentReference docRef = fstore.collection("Products").document(pid);
+                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                Map<String, Object> data1 = document.getData();
+                                String Status = data1.get("Status").toString();
+                                if (Status.equals("Active")) {
+                                    unavailable();
+                                } else {
+                                    available();
+                                }
+
+                                Log.d("tagvv", "DocumentSnapshot data: " + document.getData());
+                            } else {
+                                Log.d("tagvv", "No such document");
+                            }
+                        } else {
+                            Log.d("tagvv", "get failed with ", task.getException());
+                        }
+                    }
+                });
+
+            }
+        });
 
         btn_post_product.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -243,43 +276,6 @@ public class UpdateProduct extends AppCompatActivity {
                             });
 
 
-//                    fstore.collection("Products").add(userMap).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                        @Override
-//                        public void onSuccess(final DocumentReference documentReference) {
-//                            String Productid = documentReference.getId();
-//                            Map<String, Object> usermap1 = new HashMap<>();
-//                            usermap1.put("ProductID", Productid);
-//                            usermap1.put("Detail_image", Productid + ".png");
-//                            usermap1.put("Image", Productid + ".png");
-//                            FirebaseFirestore fstore = FirebaseFirestore.getInstance();
-//                            fstore.collection("Products").document(Productid).update(usermap1)
-//                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                        @Override
-//                                        public void onSuccess(Void aVoid) {
-//                                            Log.d("tagvv", "ITS WORKING");
-//                                        }
-//                                    }).addOnFailureListener(new OnFailureListener() {
-//                                @Override
-//                                public void onFailure(@NonNull Exception e) {
-//                                    Log.w("TAG", "Error writing document", e);
-//                                }
-//
-//                            });
-//
-//                            uploadImage(Productid);
-//                            Toast.makeText(UpdateProduct.this, " Product added Successfully ", Toast.LENGTH_SHORT).show();
-//                            pd.dismiss();
-//                            finish();
-//
-//                        }
-//                    }).addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//
-//                            String Error = e.getMessage();
-//                            Toast.makeText(UpdateProduct.this, " Error:" + Error, Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
                 }
             }
         });
@@ -308,6 +304,7 @@ public class UpdateProduct extends AppCompatActivity {
                         String Image1 = data1.get("Image").toString();
                         String Color1 = data1.get("Color").toString();
                         String Qty1 = data1.get("Qty").toString();
+                        String Status = data1.get("Status").toString();
 
                         et_product_name.getEditText().setText(Name1);
                         et_des.getEditText().setText(Description1);
@@ -318,6 +315,12 @@ public class UpdateProduct extends AppCompatActivity {
                         et_color.getEditText().setText(Color1);
                         et_qty.getEditText().setText(Qty1);
                         getProfileImage(producid);
+
+                        if (Status.equals("Active")) {
+                            status.setText("Mark Unavailable");
+                        } else {
+                            status.setText("Mark Available");
+                        }
 
                         Log.d("tagvv", "DocumentSnapshot data: " + document.getData());
                     } else {
@@ -347,82 +350,79 @@ public class UpdateProduct extends AppCompatActivity {
         });
     }
 
+    private void unavailable() {
+        final CharSequence[] options = {"Yes", "No"};
+        androidx.appcompat.app.AlertDialog.Builder builder1 = new androidx.appcompat.app.AlertDialog.Builder(UpdateProduct.this);
+        builder1.setTitle("Is the product Unavailable ?");
+        builder1.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                if (options[item].equals("Yes")) {
+                    fstore = FirebaseFirestore.getInstance();
+                    Map<String, Object> userMap = new HashMap<>();
+                    userMap.put("Status", "Inactive");
+                    fstore.collection("Products").document(pid)
+                            .update(userMap)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("TAG", "DocumentSnapshot successfully written!");
+                                    Toast.makeText(UpdateProduct.this, "Product Unavailable", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("TAG", "Error writing document", e);
+                                }
+                            });
 
-//    private void selectImage() {
-//        final CharSequence[] options = {"Choose from Gallery", "Cancel"};
-//        AlertDialog.Builder builder1 = new AlertDialog.Builder(UpdateProduct.this);
-//        builder1.setTitle("Add Photo!");
-//        builder1.setItems(options, new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int item) {
-//                if (options[item].equals("Choose from Gallery")) {
-//                    contenturi.clear();
-//                    upload1.setImageResource(R.drawable.logo);
-//                    Intent gallery = new Intent();
-//                    gallery.setType("image/*");
-//                    gallery.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-//                    gallery.setAction(Intent.ACTION_GET_CONTENT);
-//
-//                    startActivityForResult(Intent.createChooser(gallery, ""), GALLERY_REQUEST_CODE);
-//                } else if (options[item].equals("Cancel")) {
-//                    dialog.dismiss();
-//                }
-//            }
-//        });
-//        builder1.show();
-//    }
-//
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == GALLERY_REQUEST_CODE) {
-//            if (resultCode == Activity.RESULT_OK) {
-//                ClipData clipdata = data.getClipData();
-//
-//                if (clipdata != null) {
-//                    photos = clipdata.getItemCount();
-//                    if (clipdata.getItemCount() > 1) {
-//                        Toast.makeText(UpdateProduct.this, "Please select only four items", Toast.LENGTH_SHORT).show();
-//                        return;
-//                    }
-//                    for (int i = 0; i < clipdata.getItemCount(); i++) {
-//                        ClipData.Item item = clipdata.getItemAt(i);
-//                        contenturi.add(item.getUri());
-//                    }
-//                } else {
-//                    contenturi.add(data.getData());
-//                    photos = 1;
-//                }
-//            }
-//        }
-//    }
-//
-//
-//    private void uploadImage(String id) {
-//        storageReference = FirebaseStorage.getInstance().getReference();
-//        for (int j = 0; j < contenturi.size(); j++) {
-//            StorageReference ref = storageReference.child(id + ".png");
-//            ref.putFile(contenturi.get(j))
-//                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                        @Override
-//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//
-//                        }
-//                    })
-//                    .addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//
-//                            Toast.makeText(UpdateProduct.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-//
-//        }
-//
-//    }
+                } else if (options[item].equals("NO")) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder1.show();
 
+    }
+
+    private void available() {
+        final CharSequence[] options = {"Yes", "No"};
+        androidx.appcompat.app.AlertDialog.Builder builder1 = new androidx.appcompat.app.AlertDialog.Builder(UpdateProduct.this);
+        builder1.setTitle("Is the Product  Available?");
+        builder1.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                if (options[item].equals("Yes")) {
+                    fstore = FirebaseFirestore.getInstance();
+                    Map<String, Object> userMap = new HashMap<>();
+                    userMap.put("Status", "Active");
+                    fstore.collection("Products").document(pid)
+                            .update(userMap)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("TAG", "DocumentSnapshot successfully written!");
+                                    Toast.makeText(UpdateProduct.this, "Product Available", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("TAG", "Error writing document", e);
+                                }
+                            });
+
+                } else if (options[item].equals("NO")) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder1.show();
+
+    }
 
     private void selectImage() {
         final CharSequence[] options = {"Choose from Gallery", "Cancel"};

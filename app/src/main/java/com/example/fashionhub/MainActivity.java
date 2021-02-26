@@ -65,10 +65,6 @@ public class MainActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         forgotpass = findViewById(R.id.forgot);
 
-        /**
-         * login functionality
-         */
-
         forgotpass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,6 +73,12 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
+        /**
+         * login functionality
+         */
+
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,11 +101,19 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             curUser = auth.getCurrentUser();
+
+                            /**
+                             * Admin Login functionality
+                             */
                             if (admin.equals(lemail)) {
                                 Toast.makeText(getApplicationContext(), "Admin Login Success!", Toast.LENGTH_LONG).show();
                                 Intent a = new Intent(getApplicationContext(), AdminRole.class);
                                 startActivity(a);
                             } else {
+
+                                /**
+                                 * User Login functionality
+                                 */
 
                                 final FirebaseFirestore db = FirebaseFirestore.getInstance();
                                 Query document = db.collection("User").whereEqualTo("Email", lemail);
@@ -170,14 +180,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        curUser=auth.getCurrentUser();
-//        if(curUser!=null){
-//            Intent i = new Intent(getApplicationContext(),Home.class);
-//            startActivity(i);
-//
-//        }
-//    }
 }

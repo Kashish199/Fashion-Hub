@@ -98,6 +98,7 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_home);
         girl = (TextView) findViewById(R.id.girl);
         boy = (TextView) findViewById(R.id.boy);
@@ -105,6 +106,7 @@ public class Home extends AppCompatActivity {
         women = (TextView) findViewById(R.id.women);
         hname = (TextView) findViewById(R.id.hname);
         pro = (ImageView) findViewById(R.id.pro);
+
 
 
         auth = FirebaseAuth.getInstance();
@@ -202,17 +204,19 @@ public class Home extends AppCompatActivity {
 
     }
 
+
+
     /**
-     * this method is use to set data
+     * this method is use to set data from database to display products
      *
      * @param productsList
      * @param subbrand
      */
     private void setdata(final List<Products> productsList, final String subbrand) {
 
-
         db.collection("Products")
                 .whereEqualTo("Category", subbrand)
+                .whereEqualTo("Status", "Active")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -232,8 +236,6 @@ public class Home extends AppCompatActivity {
                                 String colorP = (String) document.getData().get("Color");
                                 String q =  (String) document.getData().get("Qty");
                                 int qty =  Integer.parseInt(q.toString());
-
-
 
                                 getImage(id, image, name, event, colorP, description, size, price, productsList, subbrand, detail_image ,qty);
                             }
