@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -18,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,9 +70,9 @@ public class Home extends AppCompatActivity {
     /**
      * variable declaration for textview
      */
-    TextView girl, boy, men, women, hname;
+    TextView girl, boy, men, women, hname, eve;
 
-    ImageView pro;
+    ImageView pro, search;
     /**
      * variable declaration
      */
@@ -86,7 +89,7 @@ public class Home extends AppCompatActivity {
      * variable declaration
      */
     Object doc;
-
+    RecyclerView event_name;
     String Customer , Total;
     /**
      * variable declaration
@@ -106,8 +109,9 @@ public class Home extends AppCompatActivity {
         women = (TextView) findViewById(R.id.women);
         hname = (TextView) findViewById(R.id.hname);
         pro = (ImageView) findViewById(R.id.pro);
-
-
+        eve = (TextView) findViewById(R.id.cat_name);
+        event_name = findViewById(R.id.cat_recycler);
+//        search = (ImageView) findViewById(R.id.search);
 
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
@@ -118,10 +122,26 @@ public class Home extends AppCompatActivity {
 
         List<ProductCategory> productCategoryList = new ArrayList<>();
         final List<Products> productsList = new ArrayList<>();
-        productCategoryList.add(new ProductCategory("se", "Events"));
-        productCategoryList.add(new ProductCategory("dd", "event"));
-        setProductRecycler(productCategoryList);
-        setdata(productsList, "Boy");
+        productCategoryList.add(new ProductCategory("1", "NOEvent"));
+
+ //setProductRecycler(productCategoryList);
+//        noEventdata(productsList, "Thanks Giving");
+
+//        List<ProductCategory> productCategoryList1 = new ArrayList<>();
+//        final List<Products> productsList1 = new ArrayList<>();
+        productCategoryList.add(new ProductCategory("2", "Thanks Giving"));
+  setProductRecycler(productCategoryList);
+//        noEventdata(productsList, "Thanks Giving");
+
+        event_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String events = event_name.toString();
+                removeitem(productsList);
+                noEventdata(productsList, events);
+            }
+        });
+
 
         final int white = Color.parseColor("#060001");
         final int yellow = Color.parseColor("#ffc107");
@@ -205,7 +225,6 @@ public class Home extends AppCompatActivity {
     }
 
 
-
     /**
      * this method is use to set data from database to display products
      *
@@ -235,6 +254,42 @@ public class Home extends AppCompatActivity {
                                 String event = (String) document.getData().get("Event");
                                 String colorP = (String) document.getData().get("Color");
                                 String q =  (String) document.getData().get("Qty");
+                                int qty =  Integer.parseInt(q.toString());
+
+                                getImage(id, image, name, event, colorP, description, size, price, productsList, subbrand, detail_image ,qty);
+                            }
+
+                        } else {
+                            Log.d("", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
+    private void noEventdata(final List<Products> productsList, final String event) {
+
+        db.collection("Products")
+                .whereEqualTo("Event", event)
+                .whereEqualTo("Status", "Active")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("", document.getId() + " => " + document.getData());
+                                System.out.println(document.getId() + " => " + document.getData());
+                                String name = (String) document.getData().get("Name");
+                                String description = (String) document.getData().get("Description");
+                                String size = (String) document.getData().get("Size");
+                                String price = (String) document.getData().get("Price");
+                                String id = (String)(document.getId());
+                                String image = (String) document.getData().get("Image");
+                                String detail_image = (String) document.getData().get("Detail_image");
+                                String event = (String) document.getData().get("Event");
+                                String colorP = (String) document.getData().get("Color");
+                                String q =  (String) document.getData().get("Qty");
+                                String subbrand =  (String) document.getData().get("Category");
                                 int qty =  Integer.parseInt(q.toString());
 
                                 getImage(id, image, name, event, colorP, description, size, price, productsList, subbrand, detail_image ,qty);
@@ -390,6 +445,29 @@ public class Home extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
+        MenuItem item = menu.findItem(R.id.search);
+        SearchView searchView =(SearchView)item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchdata(query);
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+//        SearchManager searchManager =
+//                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+//        SearchView searchView =
+//                (SearchView) menu.findItem(R.id.search).getActionView();
+//        searchView.setSearchableInfo(
+//                searchManager.getSearchableInfo(getComponentName()));
+
         if (Customer.equals("Seller")) {
             MenuItem profile = menu.findItem(R.id.Profile);
             profile.setVisible(true);//
@@ -407,6 +485,44 @@ public class Home extends AppCompatActivity {
             ManageProduct.setVisible(false);
             return true;
         }
+
+    }
+
+
+    private void searchdata(String query) {
+        final List<Products> productsList = new ArrayList<>();
+        db.collection("Products")
+                .whereEqualTo("Name", query)
+                .whereEqualTo("Status", "Active")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("", document.getId() + " => " + document.getData());
+                                System.out.println(document.getId() + " => " + document.getData());
+                                String name = (String) document.getData().get("Name");
+                                String description = (String) document.getData().get("Description");
+                                String size = (String) document.getData().get("Size");
+                                String price = (String) document.getData().get("Price");
+                                String id = (String)(document.getId());
+                                String image = (String) document.getData().get("Image");
+                                String detail_image = (String) document.getData().get("Detail_image");
+                                String event = (String) document.getData().get("Event");
+                                String colorP = (String) document.getData().get("Color");
+                                String q =  (String) document.getData().get("Qty");
+                                String subbrand =  (String) document.getData().get("Category");
+                                int qty =  Integer.parseInt(q.toString());
+
+                                getImage(id, image, name, event, colorP, description, size, price, productsList, subbrand, detail_image ,qty);
+                            }
+
+                        } else {
+                            Log.d("", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
     }
 
     /**
@@ -420,6 +536,7 @@ public class Home extends AppCompatActivity {
         // Handle item selection
 
         switch (item.getItemId()) {
+
             case R.id.Profile:
                 Intent pr = new Intent(getApplicationContext(), ProfileDetails.class);
                 startActivity(pr);
