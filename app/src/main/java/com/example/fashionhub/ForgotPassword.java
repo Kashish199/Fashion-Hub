@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 
 public class ForgotPassword extends AppCompatActivity {
 
-TextView signup;
+    TextView signup;
     EditText email;
     Button reset;
     String emailAddress;
@@ -80,7 +80,6 @@ TextView signup;
                 }
             }
         });
-
 
     }
 

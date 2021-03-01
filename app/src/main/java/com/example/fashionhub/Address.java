@@ -133,92 +133,13 @@ public class Address extends AppCompatActivity {
                     }
                 }
 
-               // MakePayment();
-                 PaypalPaymentsMethod();
+                PaypalPaymentsMethod();
 
             }
         });
 
-       // configPaypal();
     }
 
-//    private void configPaypal() {
-//
-//        config = new PayPalConfiguration().environment(CONFIG_ENVIRONMENT)
-//                .clientId(PAYPAL_KEY)
-//                .merchantName("4d4x23k2rkxtv2qg")
-//                .merchantPrivacyPolicyUri(Uri.parse("https://api-m.sandbox.paypal.com"))
-//                .merchantUserAgreementUri(Uri.parse("https://api-m.sandbox.paypal.com"));
-//
-//    }
-
-//    private void MakePayment() {
-//        Intent intent = new Intent(getApplicationContext(), PayPalService.class);
-//        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
-//        startService(intent);
-//
-//        thingsToday = new PayPalPayment(num,
-//                "CAD",
-//                "Test Payment",
-//                PayPalPayment.PAYMENT_INTENT_SALE);
-//
-//        Intent payment = new Intent(getApplicationContext(), PaymentActivity.class);
-//        payment.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
-//        payment.putExtra(PaymentActivity.EXTRA_PAYMENT, thingsToday);
-//        startActivityForResult(payment, REQUEST_CODE_PAYMENT);
-//
-//    }
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == REQUEST_CODE_PAYMENT) {
-//            if (resultCode == Activity.RESULT_OK) {
-//                PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
-//                Toast.makeText(Address.this, "Payment Successful", Toast.LENGTH_SHORT).show();
-//                if (confirm != null) {
-//                    try {
-//                        System.out.println(confirm.toJSONObject().toString(4));
-//                        System.out.println(confirm.getPayment().toJSONObject().toString(4));
-//
-//                    } catch (JSONException e) {
-//                        Toast.makeText(Address.this, e.toString(), Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//
-//            } else if (requestCode == Activity.RESULT_CANCELED) {
-//                Toast.makeText(Address.this, "Payment is Unsuccessful", Toast.LENGTH_SHORT).show();
-//            } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
-//                Toast.makeText(Address.this, "Payment error", Toast.LENGTH_SHORT).show();
-//            }
-//        } else if (requestCode == REQUEST_CODE_FUTURE_PAYMENT) {
-//            if (resultCode == Activity.RESULT_OK) {
-//                PayPalAuthorization auth = data.getParcelableExtra(PayPalFuturePaymentActivity.EXTRA_RESULT_AUTHORIZATION);
-//                if (auth != null) {
-//                    try {
-//                        String authoriztion_code = auth.getAuthorizationCode();
-//                        Log.d("FUTURETEST", authoriztion_code);
-//                        Log.e("paypal", "Extreme error" + authoriztion_code);
-//                    } finally {
-//
-//                    }
-////                    } catch (JSONException e) {
-////                        Toast.makeText(Address.this, "failed Payment ", Toast.LENGTH_SHORT).show();
-////                        Log.e("FUTURE", "Extreme error", e);
-////
-////                    }
-//
-//                }
-//            } else if (requestCode == Activity.RESULT_CANCELED) {
-//                Toast.makeText(Address.this, "Payment is cancelled", Toast.LENGTH_SHORT).show();
-//            } else if (resultCode == PayPalFuturePaymentActivity.RESULT_EXTRAS_INVALID) {
-//                Toast.makeText(Address.this, "Payment error occured", Toast.LENGTH_SHORT).show();
-//            }
-//
-//        }
-//
-//    }
     private void PaypalPaymentsMethod() {
 
         PayPalPayment payment = new PayPalPayment(num,
@@ -321,7 +242,6 @@ public class Address extends AppCompatActivity {
 
 
     }
-
 
 }
 

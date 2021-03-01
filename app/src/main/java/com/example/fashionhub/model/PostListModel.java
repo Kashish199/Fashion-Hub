@@ -10,15 +10,13 @@ public class PostListModel {
     String size;
     private Uri image;
 
-
-
-    public PostListModel(String productId,String title, String price, String category, String size, Uri image){
-        this.productId=productId;
-        this.price=price;
-        this.category=category;
-        this.image=image;
-        this.size=size;
-        this.title=title;
+    public PostListModel(String productId, String title, String price, String category, String size, Uri image) {
+        this.productId = productId;
+        this.price = price;
+        this.category = category;
+        this.image = image;
+        this.size = size;
+        this.title = title;
     }
 
 

@@ -293,6 +293,7 @@ public class UpdateProduct extends AppCompatActivity {
                     if (document.exists()) {
 
                         Map<String, Object> data1 = document.getData();
+                        // data1 has all the data of particular product id to get particular field from this data
                         producid = data1.get("ProductID").toString();
                         String Name1 = data1.get("Name").toString();
                         String Description1 = data1.get("Description").toString();
@@ -487,19 +488,19 @@ public class UpdateProduct extends AppCompatActivity {
         storageReference = FirebaseStorage.getInstance().getReference();
 
 // Create a reference to the file to delete
-            StorageReference desertRef = storageReference.child(pid + ".png");
+        StorageReference desertRef = storageReference.child(pid + ".png");
 // Delete the file
-            desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    // File deleted successfully
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Uh-oh, an error occurred!
-                }
-            });
+        desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                // File deleted successfully
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Uh-oh, an error occurred!
+            }
+        });
 
     }
 
@@ -559,11 +560,11 @@ public class UpdateProduct extends AppCompatActivity {
                     }
                 });
                 builder1.show();
-        return true;
-        default:
-        return super.onOptionsItemSelected(item);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
-}
 
 
     private void delete() {

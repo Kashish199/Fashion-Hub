@@ -130,7 +130,7 @@
                 android:id="@+id/Tp"
                 android:layout_width="wrap_content"
                 android:layout_height="39dp"
-                android:layout_marginLeft="235dp"
+                android:layout_marginLeft="210dp"
                 android:layout_marginTop="70dp"
                 android:text="6.00"
                 android:textColor="@color/myTextColor"

@@ -16,9 +16,7 @@ public class Products {
     Uri detail_image;
     int qty;
 
-//
-
-    public Products(String productid, String productName, String event, String colorP, String productQty, String productPrice, Uri uri, String description, String category, Uri detail_image,  int qty) {
+    public Products(String productid, String productName, String event, String colorP, String productQty, String productPrice, Uri uri, String description, String category, Uri detail_image, int qty) {
         this.productid = productid;
         this.event = event;
         this.colorP = colorP;

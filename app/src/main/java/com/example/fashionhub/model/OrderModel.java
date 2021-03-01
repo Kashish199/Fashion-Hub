@@ -38,7 +38,7 @@ public class OrderModel {
         return address;
     }
 
-    public void seraddress(String address) {
+    public void setaddress(String address) {
         this.address = address;
     }
 

@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * variable declaration for textview
      */
-    TextView useroption , forgotpass;
+    TextView useroption, forgotpass;
     /**
      * variable declaration for authentication object
      */
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                                             for (QueryDocumentSnapshot document : task.getResult()) {
                                                 Log.d("TAG", document.getId() + " => " + document.getData());
                                                 if (document.getData().containsValue("Yes")) {
-                                                    String Customer =  (String) document.getData().get("Customer");
+                                                    String Customer = (String) document.getData().get("Customer");
                                                     Toast.makeText(getApplicationContext(), "Login Success!", Toast.LENGTH_LONG).show();
                                                     Intent i = new Intent(getApplicationContext(), Home.class);
                                                     i.putExtra("Customer", Customer);
