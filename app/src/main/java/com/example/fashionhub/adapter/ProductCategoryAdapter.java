@@ -48,7 +48,6 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategory
 
     public static final class ProductViewHolder extends RecyclerView.ViewHolder {
 
-
         TextView catagoryName;
 
         public ProductViewHolder(@NonNull View itemView) {

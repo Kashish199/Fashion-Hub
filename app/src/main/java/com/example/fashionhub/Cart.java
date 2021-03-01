@@ -103,7 +103,7 @@ public class Cart extends AppCompatActivity {
 
             public void onClick(View view) {
                 int Count = productsList.size();
-                if ( Count > 0) {
+                if (Count > 0) {
                     double price = 0;
                     for (int i = 0; i < productsList.size(); i++) {
                         price = price + Double.parseDouble(productsList.get(i).getProductPrice());
@@ -137,6 +137,4 @@ public class Cart extends AppCompatActivity {
         cartItemRecycler.setAdapter(cartAdapter);
 
     }
-
-
 }

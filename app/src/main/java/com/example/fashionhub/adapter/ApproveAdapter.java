@@ -54,7 +54,6 @@ public class ApproveAdapter extends RecyclerView.Adapter<ApproveAdapter.ViewHold
         final int red = Color.parseColor("#FF0000");
 
 
-
         if (approve_list != null && approve_list.size() > 0) {
             ApproveModel model = approve_list.get(position);
 
@@ -164,8 +163,6 @@ public class ApproveAdapter extends RecyclerView.Adapter<ApproveAdapter.ViewHold
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 Log.d("TAG", "DocumentSnapshot successfully updated!");
-//                                                holder.sellname.setTextColor(Color.RED);
-//                                                holder.sellcompany.setTextColor(Color.RED);
                                             }
                                         })
                                                 .addOnFailureListener(new OnFailureListener() {

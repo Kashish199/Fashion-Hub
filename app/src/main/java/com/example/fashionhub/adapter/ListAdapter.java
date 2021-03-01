@@ -38,7 +38,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
     List<CartModel> productsList;
 
     public ListAdapter(Context context, List<CartModel> productsList) {
-        //super(context, R.layout.single_list_app_item, utilsArrayList);
         this.context = context;
         this.productsList = productsList;
         db = FirebaseFirestore.getInstance();
@@ -57,16 +56,12 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
         holder.prodName.setText(productsList.get(position).getProductName());
         holder.prodQty.setText("Quantity " + productsList.get(position).getProductQty());
         holder.prodPrice.setText("Price " + productsList.get(position).getProductPrice());
-
-
         holder.cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-
                 if (view.getId() == R.id.Cancel) {
 
-//                    String qty1 = productsList.get(position).getProductQty();
                     String pid = productsList.get(position).getProductid();
                     db.collection("Products")
                             .whereEqualTo("ProductID", pid)
@@ -122,8 +117,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 document.getReference().delete();
-                                //notifyItemRemoved(position);
-                                //notifyItemRangeChanged(position, productsList.size());
+
                             }
                             productsList.remove(position);
                             notifyDataSetChanged();
@@ -153,7 +147,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
         ImageView prodImage;
         TextView prodName, prodQty, prodPrice;
         Button cancel;
-
 
         public ListViewHolder(@NonNull View itemView) {
             super(itemView);

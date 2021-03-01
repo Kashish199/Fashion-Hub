@@ -73,12 +73,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 b.putString("Color", colorP);
                 b.putInt("Qty", qty);
 
-
                 i.putExtras(b);
                 context.startActivity(i/*, activityOptions.toBundle()*/);
             }
         });
-
 
     }
 

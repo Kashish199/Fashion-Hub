@@ -180,7 +180,7 @@ public class AddProduct extends AppCompatActivity {
                 } else if (Color.isEmpty()) {
                     Toast.makeText(AddProduct.this, "Please select color", Toast.LENGTH_LONG).show();
                     return;
-                }else if (Qty.isEmpty()) {
+                } else if (Qty.isEmpty()) {
                     Toast.makeText(AddProduct.this, "Please select Qty", Toast.LENGTH_LONG).show();
                     return;
                 } else if (photos < 1) {
@@ -197,6 +197,7 @@ public class AddProduct extends AppCompatActivity {
                     Log.v("tagvv", " " + uid);
 
                     Map<String, Object> userMap = new HashMap<>();
+                    // userMap(Key - means field of table in database, value)
                     userMap.put("UserID", uid);
                     userMap.put("Name", Product_Name);
                     userMap.put("Description", Description);
