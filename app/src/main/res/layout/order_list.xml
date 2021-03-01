@@ -4,101 +4,190 @@
     android:layout_height="wrap_content"
     android:padding="8dp"
     android:background="#fffdd0">
-
     <ImageView
         android:id="@+id/oimage"
-        android:src="@drawable/logo"
-        android:layout_width="60dp"
-        android:layout_height="60dp" />
+        android:layout_width="130dp"
+        android:layout_height="190dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="5dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo" />
 
     <TextView
         android:id="@+id/oname"
-        android:text="Product 1"
-        android:textSize="20sp"
-        android:layout_marginTop="8dp"
-        android:maxLines="1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="13dp"
         android:layout_toRightOf="@+id/oimage"
-        android:layout_toEndOf="@+id/oimage"
-        android:layout_marginLeft="12dp"
-        android:layout_marginStart="12dp" />
+        android:text="Tshirt"
+        android:textColor="#ff000000"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/oprice"
-        android:text="Price"
-        android:textSize="14sp"
-        android:maxLines="1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/oname"
-        android:layout_alignLeft="@+id/oname"
-        android:layout_alignStart="@+id/oname" />
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/oimage"
+        android:text="Price"
+        android:textColor="#ff000000"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/oquantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/oprice"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/oimage"
+        android:text="Quanitty"
+        android:textColor="#ff000000"
+        android:textSize="18sp" />
 
-        android:layout_marginLeft="10dp"
-        android:layout_toEndOf="@+id/oprice"
-        android:layout_toRightOf="@+id/oprice"
-        android:layout_below="@+id/oname"
-        android:maxLines="1"
-        android:text="Quantity 1"
-        android:textSize="14sp" />
     <TextView
         android:id="@+id/oapt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:layout_marginLeft="10dp"
-        android:layout_alignParentStart="true"
+        android:layout_below="@+id/oquantity"
+        android:layout_marginLeft="6dp"
         android:layout_marginTop="5dp"
-        android:layout_below="@+id/oimage"
-        android:maxLines="1"
-        android:text="Flat"
-        android:textSize="14sp" />
+        android:layout_toRightOf="@+id/oimage"
+        android:text="Apt"
+        android:textColor="#ff000000"
+        android:textSize="18sp" />
+
     <TextView
         android:id="@+id/oaddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:layout_marginLeft="10dp"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="5dp"
-
         android:layout_below="@+id/oapt"
-        android:maxLines="1"
-        android:text="Flat"
-        android:textSize="14sp" />
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/oimage"
+        android:text="Apt"
+        android:textColor="#ff000000"
+        android:textSize="18sp" />
+
     <TextView
         android:id="@+id/ocity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:layout_marginLeft="10dp"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="5dp"
-
         android:layout_below="@+id/oaddress"
-        android:maxLines="1"
-        android:text="Flat"
-        android:textSize="14sp" />
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/oimage"
+        android:text="Apt"
+        android:textColor="#ff000000"
+        android:textSize="18sp" />
+
     <TextView
         android:id="@+id/opostal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-
-        android:layout_marginLeft="10dp"
-        android:layout_alignParentStart="true"
-
         android:layout_below="@+id/ocity"
-        android:maxLines="1"
-        android:text="Flat"
-        android:textSize="14sp" />
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/oimage"
+        android:text="Apt"
+        android:textColor="#ff000000"
+        android:textSize="18sp" />
+
+
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/oname"-->
+<!--        android:text="Product 1"-->
+<!--        android:textSize="20sp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:maxLines="1"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_toRightOf="@+id/oimage"-->
+<!--        android:layout_toEndOf="@+id/oimage"-->
+<!--        android:layout_marginLeft="12dp"-->
+<!--        android:layout_marginStart="12dp" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/oprice"-->
+<!--        android:text="Price"-->
+<!--        android:textSize="14sp"-->
+<!--        android:maxLines="1"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@+id/oname"-->
+<!--        android:layout_alignLeft="@+id/oname"-->
+<!--        android:layout_alignStart="@+id/oname" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/oquantity"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+
+<!--        android:layout_marginLeft="10dp"-->
+<!--        android:layout_toEndOf="@+id/oprice"-->
+<!--        android:layout_toRightOf="@+id/oprice"-->
+<!--        android:layout_below="@+id/oname"-->
+<!--        android:maxLines="1"-->
+<!--        android:text="Quantity 1"-->
+<!--&lt;!&ndash;        android:textSize="14sp" />&ndash;&gt;-->
+<!--    <TextView-->
+<!--        android:id="@+id/oapt"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+
+<!--        android:layout_marginLeft="10dp"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:layout_below="@+id/oimage"-->
+<!--        android:maxLines="1"-->
+<!--        android:text="Flat"-->
+<!--        android:textSize="14sp" />-->
+<!--    <TextView-->
+<!--        android:id="@+id/oaddress"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+
+<!--        android:layout_marginLeft="10dp"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_marginTop="5dp"-->
+
+<!--        android:layout_below="@+id/oapt"-->
+<!--        android:maxLines="1"-->
+<!--        android:text="Flat"-->
+<!--        android:textSize="14sp" />-->
+<!--    <TextView-->
+<!--        android:id="@+id/ocity"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+
+<!--        android:layout_marginLeft="10dp"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_marginTop="5dp"-->
+
+<!--        android:layout_below="@+id/oaddress"-->
+<!--        android:maxLines="1"-->
+<!--        android:text="Flat"-->
+<!--        android:textSize="14sp" />-->
+<!--    <TextView-->
+<!--        android:id="@+id/opostal"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="5dp"-->
+
+<!--        android:layout_marginLeft="10dp"-->
+<!--        android:layout_alignParentStart="true"-->
+
+<!--        android:layout_below="@+id/ocity"-->
+<!--        android:maxLines="1"-->
+<!--        android:text="Flat"-->
+<!--        android:textSize="14sp" />-->
 
 
 

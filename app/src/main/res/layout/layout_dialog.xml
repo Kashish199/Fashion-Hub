@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <View style="@style/Divider.Horizontal3" />
+    <TextView
+        android:id="@+id/events"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="10dp"
+        android:text="Events"
+        android:textColor="@color/colorPrimary" />
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/events"
+        android:layout_marginTop="5dp">
+
+        <RadioGroup
+            android:id="@+id/rbevent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/checkBox1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/events"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:text="Black Friday" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/checkBox2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/checkBox1"
+                android:text="Thanks Giving" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/checkBox3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/checkBox2"
+                android:text="Boxing day" />
+        </RadioGroup>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <View style="@style/Divider.Horizontal" />
+
+    <TextView
+        android:id="@+id/size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="28dp"
+        android:text="Size"
+        android:textColor="@color/colorPrimary" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/size"
+        android:layout_marginTop="5dp">
+
+        <RadioGroup
+            android:id="@+id/rbsize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/scheckBox1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:text="XS" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/scheckBox2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/scheckBox1"
+                android:text="S" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/scheckBox3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/scheckBox2"
+                android:text="M" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/scheckBox4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/scheckBox3"
+                android:text="L" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/scheckBox5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/scheckBox4"
+                android:text="XL" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/scheckBox6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/scheckBox5"
+                android:text="XLL" />
+        </RadioGroup>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <View style="@style/Divider.Horizontal1" />
+
+    <TextView
+        android:id="@+id/colorf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line1"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="28dp"
+        android:text="Color"
+        android:textColor="@color/colorPrimary" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/colorf"
+        android:layout_marginTop="5dp">
+
+        <RadioGroup
+            android:id="@+id/rbcolor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+
+                android:id="@+id/ccheckBox1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:text="RED" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/ccheckBox2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/ccheckBox1"
+                android:text="BLUE" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+
+                android:id="@+id/ccheckBox3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/ccheckBox2"
+                android:text="GREEN" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+
+                android:id="@+id/ccheckBox4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/ccheckBox3"
+                android:text="BLACK" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+
+                android:id="@+id/ccheckBox5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/scheckBox4"
+                android:text="PINK" />
+
+        </RadioGroup>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <View style="@style/Divider.Horizontal2" />
+
+</RelativeLayout>

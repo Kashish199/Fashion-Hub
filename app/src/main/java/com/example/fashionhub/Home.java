@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -48,11 +49,277 @@ import com.squareup.picasso.Picasso;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
-public class Home extends AppCompatActivity {
+public class Home extends AppCompatActivity implements ExampleDialog.ExampleDialogListener {
+    @Override
+    public void applyTexts(String Revent, String Rsize, String Rcolor) {
+
+        if (!(Revent.equals("Null")) && !(Rsize.equals("Null")) && !(Rcolor.equals("Null"))) {
+            final List<Products> productsList = new ArrayList<>();
+            db.collection("Products")
+                    .whereEqualTo("Event", Revent)
+                    .whereEqualTo("Size", Rsize)
+                    .whereEqualTo("Color", Rcolor)
+                    .whereEqualTo("Status", "Active")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d("", document.getId() + " => " + document.getData());
+                                    System.out.println(document.getId() + " => " + document.getData());
+                                    String name = (String) document.getData().get("Name");
+                                    String description = (String) document.getData().get("Description");
+                                    String size = (String) document.getData().get("Size");
+                                    String price = (String) document.getData().get("Price");
+                                    String id = (String) (document.getId());
+                                    String image = (String) document.getData().get("Image");
+                                    String detail_image = (String) document.getData().get("Detail_image");
+                                    String event = (String) document.getData().get("Event");
+                                    String colorP = (String) document.getData().get("Color");
+                                    String q = (String) document.getData().get("Qty");
+                                    String subbrand = (String) document.getData().get("Category");
+                                    int qty = Integer.parseInt(q.toString());
+
+                                    getImage(id, image, name, event, colorP, description, size, price, productsList, subbrand, detail_image, qty);
+                                }
+
+                            } else {
+                                Log.d("", "Error getting documents: ", task.getException());
+                            }
+                            Toast.makeText(Home.this, "No data in database", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        } else if ((Revent.equals("Null")) && !(Rsize.equals("Null")) && !(Rcolor.equals("Null"))) {
+            final List<Products> productsList = new ArrayList<>();
+            db.collection("Products")
+                    .whereEqualTo("Size", Rsize)
+                    .whereEqualTo("Color", Rcolor)
+                    .whereEqualTo("Status", "Active")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d("", document.getId() + " => " + document.getData());
+                                    System.out.println(document.getId() + " => " + document.getData());
+                                    String name = (String) document.getData().get("Name");
+                                    String description = (String) document.getData().get("Description");
+                                    String size = (String) document.getData().get("Size");
+                                    String price = (String) document.getData().get("Price");
+                                    String id = (String) (document.getId());
+                                    String image = (String) document.getData().get("Image");
+                                    String detail_image = (String) document.getData().get("Detail_image");
+                                    String event = (String) document.getData().get("Event");
+                                    String colorP = (String) document.getData().get("Color");
+                                    String q = (String) document.getData().get("Qty");
+                                    String subbrand = (String) document.getData().get("Category");
+                                    int qty = Integer.parseInt(q.toString());
+
+                                    getImage(id, image, name, event, colorP, description, size, price, productsList, subbrand, detail_image, qty);
+                                }
+
+                            } else {
+                                Log.d("", "Error getting documents: ", task.getException());
+                            }
+                            Toast.makeText(Home.this, "No data in database", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+        } else if ((Revent.equals("Null")) && (Rsize.equals("Null")) && !(Rcolor.equals("Null"))) {
+            final List<Products> productsList = new ArrayList<>();
+            db.collection("Products")
+                    .whereEqualTo("Color", Rcolor)
+                    .whereEqualTo("Status", "Active")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d("", document.getId() + " => " + document.getData());
+                                    System.out.println(document.getId() + " => " + document.getData());
+                                    String name = (String) document.getData().get("Name");
+                                    String description = (String) document.getData().get("Description");
+                                    String size = (String) document.getData().get("Size");
+                                    String price = (String) document.getData().get("Price");
+                                    String id = (String) (document.getId());
+                                    String image = (String) document.getData().get("Image");
+                                    String detail_image = (String) document.getData().get("Detail_image");
+                                    String event = (String) document.getData().get("Event");
+                                    String colorP = (String) document.getData().get("Color");
+                                    String q = (String) document.getData().get("Qty");
+                                    String subbrand = (String) document.getData().get("Category");
+                                    int qty = Integer.parseInt(q.toString());
+
+                                    getImage(id, image, name, event, colorP, description, size, price, productsList, subbrand, detail_image, qty);
+                                }
+
+                            } else {
+                                Log.d("", "Error getting documents: ", task.getException());
+                            }
+                            Toast.makeText(Home.this, "No data in database", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+        } else if ((Revent.equals("Null")) && !(Rsize.equals("Null")) && (Rcolor.equals("Null"))) {
+            final List<Products> productsList = new ArrayList<>();
+            db.collection("Products")
+                    .whereEqualTo("Size", Rsize)
+                    .whereEqualTo("Status", "Active")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d("", document.getId() + " => " + document.getData());
+                                    System.out.println(document.getId() + " => " + document.getData());
+                                    String name = (String) document.getData().get("Name");
+                                    String description = (String) document.getData().get("Description");
+                                    String size = (String) document.getData().get("Size");
+                                    String price = (String) document.getData().get("Price");
+                                    String id = (String) (document.getId());
+                                    String image = (String) document.getData().get("Image");
+                                    String detail_image = (String) document.getData().get("Detail_image");
+                                    String event = (String) document.getData().get("Event");
+                                    String colorP = (String) document.getData().get("Color");
+                                    String q = (String) document.getData().get("Qty");
+                                    String subbrand = (String) document.getData().get("Category");
+                                    int qty = Integer.parseInt(q.toString());
+
+                                    getImage(id, image, name, event, colorP, description, size, price, productsList, subbrand, detail_image, qty);
+                                }
+
+                            } else {
+                                Log.d("", "Error getting documents: ", task.getException());
+                            }
+                            Toast.makeText(Home.this, "No data in database", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+        } else if (!(Revent.equals("Null")) && (Rsize.equals("Null")) && (Rcolor.equals("Null"))) {
+            final List<Products> productsList = new ArrayList<>();
+            db.collection("Products")
+                    .whereEqualTo("Event", Revent)
+                    .whereEqualTo("Status", "Active")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d("", document.getId() + " => " + document.getData());
+                                    System.out.println(document.getId() + " => " + document.getData());
+                                    String name = (String) document.getData().get("Name");
+                                    String description = (String) document.getData().get("Description");
+                                    String size = (String) document.getData().get("Size");
+                                    String price = (String) document.getData().get("Price");
+                                    String id = (String) (document.getId());
+                                    String image = (String) document.getData().get("Image");
+                                    String detail_image = (String) document.getData().get("Detail_image");
+                                    String event = (String) document.getData().get("Event");
+                                    String colorP = (String) document.getData().get("Color");
+                                    String q = (String) document.getData().get("Qty");
+                                    String subbrand = (String) document.getData().get("Category");
+                                    int qty = Integer.parseInt(q.toString());
+
+                                    getImage(id, image, name, event, colorP, description, size, price, productsList, subbrand, detail_image, qty);
+                                }
+
+                            } else {
+                                Log.d("", "Error getting documents: ", task.getException());
+                            }
+                            Toast.makeText(Home.this, "No data in database", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+        } else if ((Revent.equals("Null")) && (Rsize.equals("Null")) && (Rcolor.equals("Null"))) {
+// toast
+            Toast.makeText(Home.this, "Please select some data to filter", Toast.LENGTH_SHORT).show();
+
+        } else if (!(Revent.equals("Null")) && !(Rsize.equals("Null")) && (Rcolor.equals("Null"))) {
+            final List<Products> productsList = new ArrayList<>();
+            db.collection("Products")
+                    .whereEqualTo("Event", Revent)
+                    .whereEqualTo("Size", Rsize)
+                    .whereEqualTo("Status", "Active")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d("", document.getId() + " => " + document.getData());
+                                    System.out.println(document.getId() + " => " + document.getData());
+                                    String name = (String) document.getData().get("Name");
+                                    String description = (String) document.getData().get("Description");
+                                    String size = (String) document.getData().get("Size");
+                                    String price = (String) document.getData().get("Price");
+                                    String id = (String) (document.getId());
+                                    String image = (String) document.getData().get("Image");
+                                    String detail_image = (String) document.getData().get("Detail_image");
+                                    String event = (String) document.getData().get("Event");
+                                    String colorP = (String) document.getData().get("Color");
+                                    String q = (String) document.getData().get("Qty");
+                                    String subbrand = (String) document.getData().get("Category");
+                                    int qty = Integer.parseInt(q.toString());
+
+                                    getImage(id, image, name, event, colorP, description, size, price, productsList, subbrand, detail_image, qty);
+                                }
+
+                            } else {
+                                Log.d("", "Error getting documents: ", task.getException());
+                            }
+                            Toast.makeText(Home.this, "No data in database", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+        } else if (!(Revent.equals("Null")) && (Rsize.equals("Null")) && !(Rcolor.equals("Null"))) {
+            final List<Products> productsList = new ArrayList<>();
+            db.collection("Products")
+                    .whereEqualTo("Event", Revent)
+                    .whereEqualTo("Color", Rcolor)
+                    .whereEqualTo("Status", "Active")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d("", document.getId() + " => " + document.getData());
+                                    System.out.println(document.getId() + " => " + document.getData());
+                                    String name = (String) document.getData().get("Name");
+                                    String description = (String) document.getData().get("Description");
+                                    String size = (String) document.getData().get("Size");
+                                    String price = (String) document.getData().get("Price");
+                                    String id = (String) (document.getId());
+                                    String image = (String) document.getData().get("Image");
+                                    String detail_image = (String) document.getData().get("Detail_image");
+                                    String event = (String) document.getData().get("Event");
+                                    String colorP = (String) document.getData().get("Color");
+                                    String q = (String) document.getData().get("Qty");
+                                    String subbrand = (String) document.getData().get("Category");
+                                    int qty = Integer.parseInt(q.toString());
+
+                                    getImage(id, image, name, event, colorP, description, size, price, productsList, subbrand, detail_image, qty);
+                                }
+
+                            } else {
+                                Log.d("", "Error getting documents: ", task.getException());
+                            }
+                            Toast.makeText(Home.this, "No data in database", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+        }
+    }
 
     /**
      * variable declaration for adapter
@@ -90,7 +357,7 @@ public class Home extends AppCompatActivity {
      */
     Object doc;
     RecyclerView event_name;
-    String Customer , Total;
+    String Customer, Total;
     /**
      * variable declaration
      */
@@ -110,8 +377,6 @@ public class Home extends AppCompatActivity {
         hname = (TextView) findViewById(R.id.hname);
         pro = (ImageView) findViewById(R.id.pro);
         eve = (TextView) findViewById(R.id.cat_name);
-        event_name = findViewById(R.id.cat_recycler);
-//        search = (ImageView) findViewById(R.id.search);
 
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
@@ -124,25 +389,6 @@ public class Home extends AppCompatActivity {
         final List<Products> productsList = new ArrayList<>();
         productCategoryList.add(new ProductCategory("1", "NOEvent"));
 
- //setProductRecycler(productCategoryList);
-//        noEventdata(productsList, "Thanks Giving");
-
-//        List<ProductCategory> productCategoryList1 = new ArrayList<>();
-//        final List<Products> productsList1 = new ArrayList<>();
-        productCategoryList.add(new ProductCategory("2", "Thanks Giving"));
-  setProductRecycler(productCategoryList);
-//        noEventdata(productsList, "Thanks Giving");
-
-        event_name.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String events = event_name.toString();
-                removeitem(productsList);
-                noEventdata(productsList, events);
-            }
-        });
-
-
         final int white = Color.parseColor("#060001");
         final int yellow = Color.parseColor("#ffc107");
         girl.setOnClickListener(new View.OnClickListener() {
@@ -153,7 +399,7 @@ public class Home extends AppCompatActivity {
                 men.setTextColor(white);
                 boolean isSelectedAfterClick = !view.isSelected();
                 view.setSelected(isSelectedAfterClick);
-                if (isSelectedAfterClick){
+                if (isSelectedAfterClick) {
                     girl.setTextColor(yellow);
                 } else {
                     girl.setTextColor(white);
@@ -172,7 +418,7 @@ public class Home extends AppCompatActivity {
                 women.setTextColor(white);
                 boolean isSelectedAfterClick = !view.isSelected();
                 view.setSelected(isSelectedAfterClick);
-                if (isSelectedAfterClick){
+                if (isSelectedAfterClick) {
                     boy.setTextColor(yellow);
                 } else {
                     boy.setTextColor(white);
@@ -190,12 +436,11 @@ public class Home extends AppCompatActivity {
                 women.setTextColor(white);
                 boolean isSelectedAfterClick = !view.isSelected();
                 view.setSelected(isSelectedAfterClick);
-                if (isSelectedAfterClick){
+                if (isSelectedAfterClick) {
                     men.setTextColor(yellow);
                 } else {
                     men.setTextColor(white);
                 }
-                // men.setHighlightColor(R.font.rubik_bold_italic);
                 removeitem(productsList);
                 setdata(productsList, "Men");
 
@@ -210,7 +455,7 @@ public class Home extends AppCompatActivity {
                 men.setTextColor(white);
                 boolean isSelectedAfterClick = !view.isSelected();
                 view.setSelected(isSelectedAfterClick);
-                if (isSelectedAfterClick){
+                if (isSelectedAfterClick) {
                     women.setTextColor(yellow);
                 } else {
                     women.setTextColor(white);
@@ -220,7 +465,6 @@ public class Home extends AppCompatActivity {
 
             }
         });
-
 
     }
 
@@ -248,15 +492,15 @@ public class Home extends AppCompatActivity {
                                 String description = (String) document.getData().get("Description");
                                 String size = (String) document.getData().get("Size");
                                 String price = (String) document.getData().get("Price");
-                                String id = (String)(document.getId());
+                                String id = (String) (document.getId());
                                 String image = (String) document.getData().get("Image");
                                 String detail_image = (String) document.getData().get("Detail_image");
                                 String event = (String) document.getData().get("Event");
                                 String colorP = (String) document.getData().get("Color");
-                                String q =  (String) document.getData().get("Qty");
-                                int qty =  Integer.parseInt(q.toString());
+                                String q = (String) document.getData().get("Qty");
+                                int qty = Integer.parseInt(q.toString());
 
-                                getImage(id, image, name, event, colorP, description, size, price, productsList, subbrand, detail_image ,qty);
+                                getImage(id, image, name, event, colorP, description, size, price, productsList, subbrand, detail_image, qty);
                             }
 
                         } else {
@@ -265,43 +509,6 @@ public class Home extends AppCompatActivity {
                     }
                 });
     }
-
-    private void noEventdata(final List<Products> productsList, final String event) {
-
-        db.collection("Products")
-                .whereEqualTo("Event", event)
-                .whereEqualTo("Status", "Active")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("", document.getId() + " => " + document.getData());
-                                System.out.println(document.getId() + " => " + document.getData());
-                                String name = (String) document.getData().get("Name");
-                                String description = (String) document.getData().get("Description");
-                                String size = (String) document.getData().get("Size");
-                                String price = (String) document.getData().get("Price");
-                                String id = (String)(document.getId());
-                                String image = (String) document.getData().get("Image");
-                                String detail_image = (String) document.getData().get("Detail_image");
-                                String event = (String) document.getData().get("Event");
-                                String colorP = (String) document.getData().get("Color");
-                                String q =  (String) document.getData().get("Qty");
-                                String subbrand =  (String) document.getData().get("Category");
-                                int qty =  Integer.parseInt(q.toString());
-
-                                getImage(id, image, name, event, colorP, description, size, price, productsList, subbrand, detail_image ,qty);
-                            }
-
-                        } else {
-                            Log.d("", "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-    }
-
 
     private void getUserData() {
         auth = FirebaseAuth.getInstance();
@@ -350,7 +557,7 @@ public class Home extends AppCompatActivity {
                 // Handle any errors
                 int errorCode = ((StorageException) exception).getErrorCode();
                 String errorMessage = exception.getMessage();
-         //       Picasso.get().load(uri).fit().into(pro);
+                //       Picasso.get().load(uri).fit().into(pro);
             }
         });
     }
@@ -385,7 +592,7 @@ public class Home extends AppCompatActivity {
      * @param category
      * @param detail_image
      */
-    private void getImage(final String id, final String image, final String name,final String event, final String colorP, final String description, final String size, final String price, final List<Products> productsList, final String category, final String detail_image , final int qty) {
+    private void getImage(final String id, final String image, final String name, final String event, final String colorP, final String description, final String size, final String price, final List<Products> productsList, final String category, final String detail_image, final int qty) {
         Log.d("", description);
         FirebaseStorage storage = FirebaseStorage.getInstance();
         ;
@@ -419,15 +626,6 @@ public class Home extends AppCompatActivity {
      *
      * @param productCategoryList
      */
-    private void setProductRecycler(List<ProductCategory> productCategoryList) {
-
-        productCatRecycler = findViewById(R.id.cat_recycler);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
-        productCatRecycler.setLayoutManager(layoutManager);
-        productCategoryAdapter = new ProductCategoryAdapter(this, productCategoryList);
-        productCatRecycler.setAdapter(productCategoryAdapter);
-
-    }
 
     /**
      * set item for product list
@@ -446,12 +644,11 @@ public class Home extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         MenuItem item = menu.findItem(R.id.search);
-        SearchView searchView =(SearchView)item.getActionView();
+        SearchView searchView = (SearchView) item.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 searchdata(query);
-
                 return false;
             }
 
@@ -461,12 +658,15 @@ public class Home extends AppCompatActivity {
             }
         });
 
-//        SearchManager searchManager =
-//                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-//        SearchView searchView =
-//                (SearchView) menu.findItem(R.id.search).getActionView();
-//        searchView.setSearchableInfo(
-//                searchManager.getSearchableInfo(getComponentName()));
+        MenuItem filter = menu.findItem(R.id.filter);
+
+        filter.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                opendialog();
+                return false;
+            }
+        });
 
         if (Customer.equals("Seller")) {
             MenuItem profile = menu.findItem(R.id.Profile);
@@ -488,6 +688,11 @@ public class Home extends AppCompatActivity {
 
     }
 
+    private void opendialog() {
+        ExampleDialog exampleDialog = new ExampleDialog();
+        exampleDialog.show(getSupportFragmentManager(), "example dialog");
+
+    }
 
     private void searchdata(String query) {
         final List<Products> productsList = new ArrayList<>();
@@ -506,21 +711,25 @@ public class Home extends AppCompatActivity {
                                 String description = (String) document.getData().get("Description");
                                 String size = (String) document.getData().get("Size");
                                 String price = (String) document.getData().get("Price");
-                                String id = (String)(document.getId());
+                                String id = (String) (document.getId());
                                 String image = (String) document.getData().get("Image");
                                 String detail_image = (String) document.getData().get("Detail_image");
                                 String event = (String) document.getData().get("Event");
                                 String colorP = (String) document.getData().get("Color");
-                                String q =  (String) document.getData().get("Qty");
-                                String subbrand =  (String) document.getData().get("Category");
-                                int qty =  Integer.parseInt(q.toString());
+                                String q = (String) document.getData().get("Qty");
+                                String subbrand = (String) document.getData().get("Category");
+                                int qty = Integer.parseInt(q.toString());
 
-                                getImage(id, image, name, event, colorP, description, size, price, productsList, subbrand, detail_image ,qty);
+                                getImage(id, image, name, event, colorP, description, size, price, productsList, subbrand, detail_image, qty);
                             }
 
                         } else {
+
+
                             Log.d("", "Error getting documents: ", task.getException());
                         }
+
+                        Toast.makeText(Home.this, "No data in database", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -542,10 +751,8 @@ public class Home extends AppCompatActivity {
                 startActivity(pr);
                 return true;
             case R.id.addProduct:
-                //if (Customer.equals("Seller")) {
-                    Intent p = new Intent(getApplicationContext(), AddProduct.class);
-                    startActivity(p);
-               //
+                Intent p = new Intent(getApplicationContext(), AddProduct.class);
+                startActivity(p);
                 return true;
             case R.id.manageProduct:
                 Intent ma = new Intent(getApplicationContext(), PostList.class);

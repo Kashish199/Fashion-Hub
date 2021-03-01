@@ -13,4 +13,44 @@
         <item name="background">@color/Approve</item>
     </style>
 
+    <style name="Divider">
+        <item name="android:background">@color/colorPrimary</item>
+        //you can give your color here. that will change all divider color in your app.
+    </style>
+
+    <style name="Divider.Horizontal" parent="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_below">@+id/line</item>
+        // You can change thickness here.
+
+    </style>
+
+    <style name="Divider.Horizontal1" parent="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_below">@+id/line1</item>
+        // You can change thickness here.
+
+    </style>
+
+    <style name="Divider.Horizontal2" parent="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_below">@+id/line2</item>
+        // You can change thickness here.
+
+    </style>
+
+    <style name="Divider.Horizontal3" parent="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginTop">1dp</item>
+        <item name="android:layout_above">@+id/events</item>
+        // You can change thickness here.
+
+    </style>
 </resources>
