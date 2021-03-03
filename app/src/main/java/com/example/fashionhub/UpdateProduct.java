@@ -230,9 +230,10 @@ public class UpdateProduct extends AppCompatActivity {
                 } else if (Qty.isEmpty()) {
                     Toast.makeText(UpdateProduct.this, "Please select Qty", Toast.LENGTH_LONG).show();
                     return;
-                } else if (photos < 1) {
-                    Toast.makeText(UpdateProduct.this, "Please Select atleast 1 photo", Toast.LENGTH_LONG).show();
-                } else {
+                }
+//                else if (photos < 1) {
+//                    Toast.makeText(UpdateProduct.this, "Please Select atleast 1 photo", Toast.LENGTH_LONG).show();}
+                 else {
                     final ProgressDialog pd;
                     pd = new ProgressDialog(UpdateProduct.this);
                     pd.setMessage("Loading...");

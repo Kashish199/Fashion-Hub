@@ -128,13 +128,13 @@ public class AddProduct extends AppCompatActivity {
             public void onClick(View view) {
 
                 fstore = FirebaseFirestore.getInstance();
-                final String Product_Name = et_product_name.getEditText().getText().toString().trim();
+                final String Product_Name = et_product_name.getEditText().getText().toString().trim().toUpperCase();
                 final String Description = et_des.getEditText().getText().toString().trim();
                 final String Amount = et_amt.getEditText().getText().toString().trim();
                 String Category = et_category.getEditText().getText().toString().trim();
                 String Event = et_event.getEditText().getText().toString().trim();
                 String Size = et_size.getEditText().getText().toString().trim();
-                String Color = et_color.getEditText().getText().toString().trim();
+                String Color = et_color.getEditText().getText().toString().trim().toUpperCase();
                 String Qty = et_qty.getEditText().getText().toString().trim();
 
 

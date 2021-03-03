@@ -92,7 +92,6 @@ public class Home extends AppCompatActivity implements ExampleDialog.ExampleDial
                             } else {
                                 Log.d("", "Error getting documents: ", task.getException());
                             }
-                            Toast.makeText(Home.this, "No data in database", Toast.LENGTH_SHORT).show();
                         }
                     });
         } else if ((Revent.equals("Null")) && !(Rsize.equals("Null")) && !(Rcolor.equals("Null"))) {
@@ -128,7 +127,6 @@ public class Home extends AppCompatActivity implements ExampleDialog.ExampleDial
                             } else {
                                 Log.d("", "Error getting documents: ", task.getException());
                             }
-                            Toast.makeText(Home.this, "No data in database", Toast.LENGTH_SHORT).show();
 
                         }
                     });
@@ -164,7 +162,6 @@ public class Home extends AppCompatActivity implements ExampleDialog.ExampleDial
                             } else {
                                 Log.d("", "Error getting documents: ", task.getException());
                             }
-                            Toast.makeText(Home.this, "No data in database", Toast.LENGTH_SHORT).show();
 
                         }
                     });
@@ -200,7 +197,6 @@ public class Home extends AppCompatActivity implements ExampleDialog.ExampleDial
                             } else {
                                 Log.d("", "Error getting documents: ", task.getException());
                             }
-                            Toast.makeText(Home.this, "No data in database", Toast.LENGTH_SHORT).show();
 
                         }
                     });
@@ -236,7 +232,6 @@ public class Home extends AppCompatActivity implements ExampleDialog.ExampleDial
                             } else {
                                 Log.d("", "Error getting documents: ", task.getException());
                             }
-                            Toast.makeText(Home.this, "No data in database", Toast.LENGTH_SHORT).show();
 
                         }
                     });
@@ -277,7 +272,6 @@ public class Home extends AppCompatActivity implements ExampleDialog.ExampleDial
                             } else {
                                 Log.d("", "Error getting documents: ", task.getException());
                             }
-                            Toast.makeText(Home.this, "No data in database", Toast.LENGTH_SHORT).show();
 
                         }
                     });
@@ -314,7 +308,6 @@ public class Home extends AppCompatActivity implements ExampleDialog.ExampleDial
                             } else {
                                 Log.d("", "Error getting documents: ", task.getException());
                             }
-                            Toast.makeText(Home.this, "No data in database", Toast.LENGTH_SHORT).show();
 
                         }
                     });
@@ -604,9 +597,9 @@ public class Home extends AppCompatActivity implements ExampleDialog.ExampleDial
                 storageRef.child(detail_image).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri detail_image) {
-                        productsList.add(new Products(id, name, event, colorP, size, price, uri, description, category, detail_image, qty));
-                        setProdItemRecycler(productsList);
 
+                        productsList.add(new Products(id, name, event, colorP, size, price, uri, description, category, detail_image, qty));
+                            setProdItemRecycler(productsList);
                     }
                 });
 
@@ -694,20 +687,33 @@ public class Home extends AppCompatActivity implements ExampleDialog.ExampleDial
 
     }
 
-    private void searchdata(String query) {
+    private void searchdata(final String query) {
+        final String q= query.toUpperCase();
+        System.out.println("QUERY VALUE" + q);
         final List<Products> productsList = new ArrayList<>();
         db.collection("Products")
-                .whereEqualTo("Name", query)
+                .whereEqualTo("Name", q)
                 .whereEqualTo("Status", "Active")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        String name ;
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("", document.getId() + " => " + document.getData());
                                 System.out.println(document.getId() + " => " + document.getData());
-                                String name = (String) document.getData().get("Name");
+                                name = (String) document.getData().get("Name");
+                                System.out.println("QUERY VALUE" + q);
+
+                                if (!name.equals(q)) {
+                                  System.out.println("QUERY VALUE" + q);
+
+                                    Toast.makeText(Home.this, "No data in database", Toast.LENGTH_SHORT).show();
+
+
+                                    Log.d("", "Error getting documents: ", task.getException());
+                                }
                                 String description = (String) document.getData().get("Description");
                                 String size = (String) document.getData().get("Size");
                                 String price = (String) document.getData().get("Price");
@@ -721,15 +727,15 @@ public class Home extends AppCompatActivity implements ExampleDialog.ExampleDial
                                 int qty = Integer.parseInt(q.toString());
 
                                 getImage(id, image, name, event, colorP, description, size, price, productsList, subbrand, detail_image, qty);
+
+
                             }
 
+
                         } else {
-
-
                             Log.d("", "Error getting documents: ", task.getException());
                         }
 
-                        Toast.makeText(Home.this, "No data in database", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
