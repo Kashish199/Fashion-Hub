@@ -18,7 +18,7 @@ public class OrderSummary extends AppCompatActivity {
     /**
      * variable declarration for button
      */
-    Button btnCheckout,btnpromo;
+    Button btnCheckout, btnpromo;
     EditText promo;
 
     double total;
@@ -36,7 +36,6 @@ public class OrderSummary extends AppCompatActivity {
         final Bundle b = getIntent().getExtras();
 
 
-
         final double price = b.getDouble("price");
 
         stotal.setText("$ " + price);
@@ -51,19 +50,18 @@ public class OrderSummary extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String Promo = promo.getText().toString().trim();
-               if(Promo.isEmpty() || !(Promo.equals("SALE10"))){
-                   Toast.makeText(OrderSummary.this, "Enter Valid Coupon code", Toast.LENGTH_SHORT).show();
-                   return;
-               }else {
-                   double dis = price;
-                   dis = dis + ((price * 15) / 100) + 4 - 10;
-                   Tp.setText("$ " + dis);
-                   String A = Tp.getText().toString();
-                   T = A.replace("$", "");
-               }
+                if (Promo.isEmpty() || !(Promo.equals("SALE10"))) {
+                    Toast.makeText(OrderSummary.this, "Enter Valid Coupon code", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    double dis = price;
+                    dis = dis + ((price * 15) / 100) + 4 - 10;
+                    Tp.setText("$ " + dis);
+                    String A = Tp.getText().toString();
+                    T = A.replace("$", "");
+                }
             }
         });
-
 
 
         /**
