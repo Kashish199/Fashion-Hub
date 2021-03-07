@@ -20,32 +20,32 @@
             android:id="@+id/label"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:text="Pricing"
-            android:textAllCaps="true"
-            android:textStyle="bold"
             android:background="#37474F"
+            android:gravity="center"
+            android:text="Pricing"
+            android:textAlignment="gravity"
+            android:textAllCaps="true"
             android:textColor="#FFFFFF"
             android:textSize="30dp"
-            android:textAlignment="gravity"
-            android:gravity="center"/>
-
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginLeft="15dp">
+            android:layout_marginLeft="15dp"
+            android:orientation="vertical">
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginTop="80dp"
-                android:background="@android:color/darker_gray"/>
+                android:background="@android:color/darker_gray" />
+
             <TextView
                 android:id="@+id/subTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="16dp"
                 android:text="SubTotal"
                 android:textColor="#37474F"
                 android:textSize="25dp" />
@@ -54,7 +54,7 @@
                 android:id="@+id/Tax"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="10dp"
                 android:text="Tax"
                 android:textColor="#D32F2F"
                 android:textSize="20dp" />
@@ -63,25 +63,36 @@
                 android:id="@+id/DC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="10dp"
                 android:text="Delivery Charges"
                 android:textColor="#D32F2F"
                 android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/promo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Coupon code"
+                android:textColor="#D32F2F"
+                android:textSize="20dp" />
+
             <View
                 android:layout_width="309dp"
                 android:layout_height="2dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="43dp"
 
-                android:background="@android:color/darker_gray"/>
+                android:background="@android:color/darker_gray" />
+
             <TextView
                 android:id="@+id/Total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="20dp"
                 android:text="Total"
-                android:textStyle="bold"
                 android:textColor="@color/myTextColor"
-                android:textSize="31dp" />
+                android:textSize="31dp"
+                android:textStyle="bold" />
 
 
         </LinearLayout>
@@ -95,13 +106,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginTop="80dp"
-                android:background="@android:color/darker_gray"/>
+                android:background="@android:color/darker_gray" />
+
             <TextView
                 android:id="@+id/sTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="250dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="15dp"
                 android:text="$ 3.50"
                 android:textColor="#37474F"
                 android:textSize="25dp" />
@@ -111,7 +123,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="250dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="10dp"
                 android:text="15%"
                 android:textColor="#D32F2F"
                 android:textSize="20dp" />
@@ -121,30 +133,57 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="250dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="10dp"
                 android:text="$ 4"
                 android:textColor="#D32F2F"
                 android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/sale"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="250dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="3dp"
+                android:textColor="#D32F2F"
+                android:textSize="12dp" />
+
+            <Button
+                android:id="@+id/buttona"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="250dp"
+                android:layout_marginTop="1dp"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingLeft="1dp"
+                android:paddingEnd="1dp"
+                android:paddingRight="1dp"
+                android:paddingBottom="1dp"
+                android:text="Add"
+                android:textColor="#D32F2F"
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/Tp"
                 android:layout_width="wrap_content"
                 android:layout_height="39dp"
                 android:layout_marginLeft="210dp"
-                android:layout_marginTop="70dp"
-                android:text="6.00"
+                android:layout_marginTop="20dp"
+                android:text="0.00"
                 android:textColor="@color/myTextColor"
                 android:textSize="31dp"
                 android:textStyle="bold" />
 
         </LinearLayout>
+
         <Button
             android:id="@+id/btnCheckout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
-            android:background="#ffc107"
             android:layout_marginTop="360dp"
+            android:background="#ffc107"
             android:text="CheckOut Order"
             android:textColor="#424242"
             android:textSize="25dp"

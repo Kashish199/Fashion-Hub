@@ -6,9 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.SearchManager;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -49,7 +46,6 @@ import com.squareup.picasso.Picasso;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -381,6 +377,7 @@ public class Home extends AppCompatActivity implements ExampleDialog.ExampleDial
         List<ProductCategory> productCategoryList = new ArrayList<>();
         final List<Products> productsList = new ArrayList<>();
         productCategoryList.add(new ProductCategory("1", "NOEvent"));
+        setdata(productsList, "Boy");
 
         final int white = Color.parseColor("#060001");
         final int yellow = Color.parseColor("#ffc107");
@@ -599,7 +596,7 @@ public class Home extends AppCompatActivity implements ExampleDialog.ExampleDial
                     public void onSuccess(Uri detail_image) {
 
                         productsList.add(new Products(id, name, event, colorP, size, price, uri, description, category, detail_image, qty));
-                            setProdItemRecycler(productsList);
+                        setProdItemRecycler(productsList);
                     }
                 });
 
@@ -688,7 +685,7 @@ public class Home extends AppCompatActivity implements ExampleDialog.ExampleDial
     }
 
     private void searchdata(final String query) {
-        final String q= query.toUpperCase();
+        final String q = query.toUpperCase();
         System.out.println("QUERY VALUE" + q);
         final List<Products> productsList = new ArrayList<>();
         db.collection("Products")
@@ -698,22 +695,13 @@ public class Home extends AppCompatActivity implements ExampleDialog.ExampleDial
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        String name ;
+                        String name;
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("", document.getId() + " => " + document.getData());
                                 System.out.println(document.getId() + " => " + document.getData());
                                 name = (String) document.getData().get("Name");
                                 System.out.println("QUERY VALUE" + q);
-
-                                if (!name.equals(q)) {
-                                  System.out.println("QUERY VALUE" + q);
-
-                                    Toast.makeText(Home.this, "No data in database", Toast.LENGTH_SHORT).show();
-
-
-                                    Log.d("", "Error getting documents: ", task.getException());
-                                }
                                 String description = (String) document.getData().get("Description");
                                 String size = (String) document.getData().get("Size");
                                 String price = (String) document.getData().get("Price");
