@@ -5,7 +5,7 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="myTextColor">#51ca8e</color>
     <color name="myMainColor">#51ca8e</color>
-     <color name="Approve">#008000</color>
+    <color name="Approve">#008000</color>
     <color name="deny">#FF0000</color>
     <color name="cartbutton">#42995C</color>
 

@@ -85,7 +85,6 @@ public class SellerSignup extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
                 String Name = fname.getText().toString();
                 String Phone = lnumber.getText().toString();
                 String Email = email.getText().toString();
@@ -114,16 +113,11 @@ public class SellerSignup extends AppCompatActivity {
                     Toast.makeText(SellerSignup.this, "Please enter valid email", Toast.LENGTH_SHORT).show();
                     return;
                 }
-//                SharedPreferences.Editor editor = sp.edit();
-//                editor.putString("USEREmailID", Email);
-//                editor.putString("USERPassword", ConfirmPassword);
-//                editor.commit();
+
                 pd = new ProgressDialog(SellerSignup.this);
                 pd.setMessage("Loading...");
                 pd.show();
-//                FirebaseUser user = mFirebaseAuth.getCurrentUser();
-//                String UserId = user.getUid();
-//                System.out.println(UserId);
+
                 final Map<String, Object> usermap = new HashMap<>();
                 usermap.put("Name", Name);
                 usermap.put("Phone", Phone);

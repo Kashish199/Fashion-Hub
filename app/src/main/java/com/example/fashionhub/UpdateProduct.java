@@ -4,43 +4,30 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.datepicker.CalendarConstraints;
-import com.google.android.material.datepicker.DateValidatorPointForward;
-import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -52,14 +39,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TimeZone;
 
 public class UpdateProduct extends AppCompatActivity {
 
@@ -230,10 +212,7 @@ public class UpdateProduct extends AppCompatActivity {
                 } else if (Qty.isEmpty()) {
                     Toast.makeText(UpdateProduct.this, "Please select Qty", Toast.LENGTH_LONG).show();
                     return;
-                }
-//                else if (photos < 1) {
-//                    Toast.makeText(UpdateProduct.this, "Please Select atleast 1 photo", Toast.LENGTH_LONG).show();}
-                 else {
+                } else {
                     final ProgressDialog pd;
                     pd = new ProgressDialog(UpdateProduct.this);
                     pd.setMessage("Loading...");
@@ -460,7 +439,6 @@ public class UpdateProduct extends AppCompatActivity {
                 ClipData clipdata = data.getClipData();
                 contenturi.clear();
                 deleteImages();
-                //  Toast.makeText(this, "" + internetPhotos, Toast.LENGTH_SHORT).show();
 
                 if (clipdata != null) {
                     changed = true;

@@ -36,7 +36,6 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import static com.example.fashionhub.Signup.isEmailValid;
@@ -105,11 +104,6 @@ public class ProfileDetails extends AppCompatActivity {
                     return;
                 }
 
-//                final Map<String, Object> usermap = new HashMap<>();
-//                usermap.put("Name", Name);
-//                usermap.put("Phone", Phone);
-//                usermap.put("Email", Email);
-//                usermap.put("Company", Company);
 
                 auth = FirebaseAuth.getInstance();
                 FirebaseUser firebaseUser = auth.getCurrentUser();
@@ -137,7 +131,7 @@ public class ProfileDetails extends AppCompatActivity {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful()) {
-                                                        if(Company.isEmpty()) {
+                                                        if (Company.isEmpty()) {
                                                             Log.d("tagvv", "User email address updated.");
                                                             auth = FirebaseAuth.getInstance();
                                                             FirebaseUser firebaseUser = auth.getCurrentUser();
@@ -155,7 +149,7 @@ public class ProfileDetails extends AppCompatActivity {
                                                                     Toast.makeText(ProfileDetails.this, " Error:" + Error, Toast.LENGTH_SHORT).show();
                                                                 }
                                                             });
-                                                        }else {
+                                                        } else {
                                                             Log.d("tagvv", "User email address updated.");
                                                             auth = FirebaseAuth.getInstance();
                                                             FirebaseUser firebaseUser = auth.getCurrentUser();
@@ -183,7 +177,7 @@ public class ProfileDetails extends AppCompatActivity {
                                 }
                             });
                 } else {
-                    if(Company.isEmpty()) {
+                    if (Company.isEmpty()) {
                         db.collection("User").document(id).update("Name", Name,
                                 "Phone", Phone, "Email", Email).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -198,7 +192,7 @@ public class ProfileDetails extends AppCompatActivity {
                                 Toast.makeText(ProfileDetails.this, " Error:" + Error, Toast.LENGTH_SHORT).show();
                             }
                         });
-                    }else {
+                    } else {
                         db.collection("User").document(id).update("Name", Name,
                                 "Phone", Phone, "Email", Email, "Company", Company).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -331,8 +325,8 @@ public class ProfileDetails extends AppCompatActivity {
                         email.getEditText().setText(Email);
                         phone.getEditText().setText(Phnumber);
                         getProfileImage(id);
-                        if(data2.containsKey("Company")){
-                             String Company = data2.get("Company").toString();
+                        if (data2.containsKey("Company")) {
+                            String Company = data2.get("Company").toString();
                             company.getEditText().setText(Company);
                         } else {
                             company.setEnabled(false);

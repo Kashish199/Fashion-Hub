@@ -107,8 +107,6 @@ public class Signup extends AppCompatActivity {
                 pd = new ProgressDialog(Signup.this);
                 pd.setMessage("Loading...");
                 pd.show();
-//                FirebaseUser user = mFirebaseAuth.getCurrentUser();
-//                String UserId = user.getUid();
 
                 final Map<String, Object> usermap = new HashMap<>();
                 usermap.put("Name", Name);

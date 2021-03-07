@@ -2,48 +2,48 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp"
-    android:background="#fffdd0">
+    android:background="#fffdd0"
+    android:padding="8dp">
 
     <ImageView
         android:id="@+id/cimage"
-        android:src="@drawable/logo"
         android:layout_width="60dp"
-        android:layout_height="60dp" />
+        android:layout_height="60dp"
+        android:src="@drawable/logo" />
 
     <TextView
         android:id="@+id/cname"
-        android:text="Product 1"
-        android:textSize="20sp"
-        android:layout_marginTop="8dp"
-        android:maxLines="1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/cimage"
-        android:layout_toEndOf="@+id/cimage"
+        android:layout_marginStart="12dp"
         android:layout_marginLeft="12dp"
-        android:layout_marginStart="12dp" />
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@+id/cimage"
+        android:layout_toRightOf="@+id/cimage"
+        android:maxLines="1"
+        android:text="Product 1"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/cprice"
-        android:text="Price"
-        android:textSize="14sp"
-        android:maxLines="1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/cname"
+        android:layout_alignStart="@+id/cname"
         android:layout_alignLeft="@+id/cname"
-        android:layout_alignStart="@+id/cname" />
+        android:maxLines="1"
+        android:text="Price"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/cquantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/cname"
         android:layout_marginLeft="10dp"
         android:layout_toEndOf="@+id/cprice"
         android:layout_toRightOf="@+id/cprice"
-        android:layout_below="@+id/cname"
         android:maxLines="1"
         android:text="Quantity 1"
         android:textSize="14sp" />
@@ -52,10 +52,10 @@
         android:id="@+id/Cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxLines="1"
-        android:text="Cancel"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="270dp"/>
+        android:layout_marginLeft="270dp"
+        android:maxLines="1"
+        android:text="Cancel" />
 
 
 </RelativeLayout>

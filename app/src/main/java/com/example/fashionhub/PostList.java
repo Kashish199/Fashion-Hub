@@ -86,7 +86,7 @@ public class PostList extends AppCompatActivity {
 
     private void getImage(final String id, final String title, final String price, final String category, final String size) {
         storageReference = FirebaseStorage.getInstance().getReference().child(id + ".png");
-        Log.d("PostList",  " => " + storageReference);
+        Log.d("PostList", " => " + storageReference);
         storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {

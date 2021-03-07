@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="#fffdd0">
+    android:background="#fffdd0"
+    tools:context=".MainActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="350dp"
@@ -16,27 +16,27 @@
         app:cardElevation="2dp">
 
         <TextView
+            android:id="@+id/TsignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thank You for SHopping with us!!!"
-            android:id="@+id/TsignUp"
-            android:textSize="20dp"
-            android:textColor="#ffa000"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="130dp"
-            android:layout_marginLeft="20dp">
+            android:text="Thank You for SHopping with us!!!"
+            android:textColor="#ffa000"
+            android:textSize="20dp">
 
         </TextView>
+
         <Button
             android:id="@+id/cont"
             android:layout_width="250dp"
             android:layout_height="40dp"
-            android:textColor="#ffffff"
-            android:layout_marginTop="30dp"
             android:layout_gravity="center"
+            android:layout_marginTop="30dp"
             android:background="#FFB6C1"
             android:text="Continue Shopping"
-            android:textSize="20dp"
-            />
+            android:textColor="#ffffff"
+            android:textSize="20dp" />
 
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

@@ -70,8 +70,6 @@ public class Orders extends AppCompatActivity {
                                 String name = (String) document.getData().get("ProductName");
                                 String quantity = String.valueOf(document.getData().get("productQty"));
                                 String apt = (String) document.getData().get("Apt");
-
-
                                 String image = (String) document.getData().get("Image");
                                 String address = (String) document.getData().get("Address");
                                 String city = (String) document.getData().get("City");
